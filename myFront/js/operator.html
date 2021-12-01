@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>operator.html</title>
+    <script>
+      /*산술연산자: +,-,*,/,% */
+      var a;
+      a = 1;
+      console.log(a + 2);
+      console.log(a / 2); // 0.5
+      console.log(a / 0); //Infinity
+      var b; //undefined
+      a = undefined;
+      console.log(a + 2); //NaN
+      console.log(a / 0); //NaN
+
+      a = 1;
+      console.log(a + "2"); //숫자형이 문자형으로 자동형변환 '1'+'2'
+      console.log(a - "2"); //문자형이 숫자형으로 자동형변환 1-2, 결과 -1
+      console.log(a + true); //논리형이 숫자형으로 자동형변환 1+1, 결과 2
+      /*대입연산자: =.+=,-=,*=,/=,%= */
+      a = 1;
+      a += 2; //a = a+2;
+      console.log(a); //3
+      a = "1";
+      a += 2;
+      console.log(a); //12
+      /*비교연산자: >,>=,<,<=,==,===,!= */
+      a = 1;
+      b = 2;
+      console.log(a == b); //true
+
+      b = "1";
+      console.log(a == b); //true
+      console.log(a === b); //자료형과 값비교 false
+      /*증감연산자: ++,--, */
+      a = 1;
+      console.log(a++); //1
+      a = 1;
+      console.log(++a); //2
+      /*삼향선산자: ? : */
+      a = 123;
+      console.log(a % 2 == 0 ? "짝수" : "홀수");
+
+      /*강제형변환 함수*/
+      //string->number 정수
+      a = parseInt("123");
+      console.log("자료형 : " + typeof a); //number
+
+      a = parseInt("12345.678");
+      console.log("a=" + a + ", 자료형:" + typeof a);
+
+      //string->number
+      a = Number("123");
+      console.log("a=" + a + ", 자료형:" + typeof a);
+
+      //number->string
+      a = String(123);
+      console.log("a=" + a + ", 자료형:" + typeof a);
+
+      //string->boolean
+      a = Boolean("true");
+      console.log("a=" + a + ", 자료형:" + typeof a);
+      //boolean->string
+      a = String(true);
+      console.log("a=" + a + ", 자료형:" + typeof a);
+    </script>
+  </head>
+</html>

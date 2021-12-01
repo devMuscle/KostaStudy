@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>고객가입</title>
+  </head>
+  <body>
+    <div>
+        <form action="http://localhost:8888/signup" method="post" autocomplete="off">
+            <fieldset>
+                <label>
+                    아이디: <input type="text" name="id" required/>
+                    <input type="button" value="아이디중복확인">
+                </label>
+                <br>
+                <label>
+                    비밀번호: <input type="password" name="pwd" required/>
+                </label>
+                <br>
+                <label>
+                    비밀번호확인: <input type="password" name="pwd1" required/>
+                </label>
+                <br>
+                <label>
+                    이름: <input type="text" name="name">
+                </label>
+                <br>
+                <div>
+                    <label>
+                        주소: <input type="text">
+                    </label>
+                    <input type="button" value="우편번호찾기">
+                    <br>
+                    <input type="text">
+                    <br>
+                    <input type="text" name="address">
+                    <br>
+                    <input type="submit" value="가입">
+                    <input type="reset" vlaue="CLEAR">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+  </body>
+</html>

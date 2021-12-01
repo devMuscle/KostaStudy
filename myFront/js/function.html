@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      //이름있는 함수
+      function test(param1, param2) {
+        console.log(param1 + ":" + param2);
+        return param1 + param2;
+      }
+
+      var result;
+      result = test(1, 2);
+      console.log("result of test(1,2)" + result);
+
+      result = test(1);
+      console.log("result of test(1)" + result);
+
+      result = test(1, 2, 3, 4);
+      console.log("result of test(1,2,3,4)" + result);
+
+      function test2() {}
+
+      result = test2(); //반환값이 없는 함수호출 결과를 result에 대입
+      console.log("result of test2()" + result); //undefined
+
+      (function (param1) {
+        console.log("이름없는함수가 호출됨 인자값:" + param1);
+      })(1);
+
+      var a = function (param1, param2) {
+        console.log(
+          "이름없는 함수가 호출됨 인자1값:" + param1 + ", 인자2값 :" + param2
+        );
+      };
+      var b = a;
+      a(1, 2);
+      b(3, 4);
+
+      var c = function (param1, param2) {
+        for (var i = 0; i < 5; i++) {
+          param1();
+        }
+      };
+      var arg1 = function () {
+        console.log("call back!");
+      };
+      c(arg1, 5);
+
+      var d = function (param1, param2, param3) {
+        for (var i = 0; i < param3; i++) {
+          param1(param2);
+        }
+      };
+      var arg2 = function (msg) {
+        console.log(msg);
+      };
+      d(arg2, "hello", 10);
+    </script>
+  </head>
+  <body></body>
+</html>

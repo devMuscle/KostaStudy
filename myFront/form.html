@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>form.html</title>
+  </head>
+  <body>
+    <div>
+      <form
+        action="http://localhost:8888/a.jsp"
+        method="post"
+        autocomplete="off"
+      >
+        <label
+          >한줄입력란:
+          <input type="text" name="t" value="hello" maxlength="10" />
+        </label>
+        <label
+          >비밀번호입력란:
+          <input type="password" name="p" />
+        </label>
+        <fieldset>
+          <legend>사용가능한 언어</legend>
+          <label>
+            <input
+              type="checkbox"
+              checked="checked"
+              name="c"
+              value="java"
+            />JAVA </label
+          >&nbsp;&nbsp;
+          <label>
+            <input type="checkbox" checked name="c" value="sql" />SQL </label
+          >&nbsp;&nbsp;
+          <label> <input type="checkbox" name="c" value="html" />HTML </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>성별</legend>
+          <label><input type="radio" name="r" value="m" />남</label>&nbsp;&nbsp;
+          <label><input type="radio" name="r" value="f" checked />여</label>
+        </fieldset>
+
+        <input type="hidden" name="h" value="hiddenData" />숨김
+        <input type="file" name="f" />
+        <select name="s">
+          <option value="s1">프로그래머</option>
+          <option selected value="s2">웹퍼블리셔</option>
+          <option value="s3">데이터분석가</option>
+        </select>
+
+        <textarea rows="5" cols="100" name="ta">여러줄입력란</textarea>
+        <hr />
+        <input type="submit" value="전송1" />
+        <button>전송2</button>
+        <!--button type="submit"과 같은효과-->
+
+        <input type="button" value="일반버튼1" />
+
+        <input type="reset" value="CLEAR1" />
+        <button type="reset">CLEAR2</button>
+      </form>
+      <button>일반버튼2</button
+      ><!-- button type="button"과 같은효과-->
+    </div>
+    <div>
+      <h3>HTML5에 추가된 input태그의 type속성들</h3>
+      <input type="number" max="10" min="1" step="2" value="1" />
+      <input type="email" />
+      <input type="date" max="2021-12-31" min="2021-11-01" />
+      <input type="search" />
+      <input type="range" min="1" max="10" value="2" />
+    </div>
+    <div>
+      <h3>HTML5의 input태그에 추가된 속성들</h3>
+      min, max<br />
+      <!--required : 필수입력-->
+      <input type="text" required />
+
+      <!--autofocus : 페이지로드시 포커싱하기
+                placeholder : 입력도움말
+            -->
+      <input type="text" autofocus placeholder="아이디를 입력하세요" />
+
+      <!--autocomplete : 자동완성기능사용on, 해제off-->
+    </div>
+  </body>
+</html>

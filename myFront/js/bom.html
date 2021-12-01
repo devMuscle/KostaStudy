@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      let btObj = document.querySelector("button");
+      window.addEventListener("load", function () {
+        location.href = "http://www.daum.net";
+      });
+
+      let BtBackObj = document.querySelector("button.back");
+      BtBackObj.addEventListener("click", function () {
+        history.go(-1);
+      });
+    </script>
+  </head>
+  <body>
+    <button>리다이렉션</button>
+  </body>
+</html>

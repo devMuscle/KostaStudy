@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html></html>
+<head>
+   <script>
+       window.addEventListener('load',function(){
+            let btObjArr = document.querySelectorAll('button');
+            btObjArr[0].addEventListener('click',function(){
+                let url = 'popup.html'; //http://www.google.com
+                let target ='firstw';
+                let features = 'width=300px, height=300px';
+                windowId = window.open(url,target,features);
+                btObjArr[0].style.display = 'none';
+                btObjArr[1].style.display = 'inline-block';
+               
+            });
+            btObjArr[1].addEventListener('click',function(){
+                windowId.close();
+                btObjArr[1].style.display = 'none';
+                btObjArr[0].style.display = 'inline-block';
+            });
+            btObjArr[2].addEventListener('click', function(){
+                window.setTimeout(function(){
+                    alert("5초가 지나습니다");
+                }, 5*1000);
+            });
+
+            let intervalId;
+            btObjArr[3].addEventListener('click', function(){
+                let colorArr = ['red', 'green', 'yellow', 'pink', 'blue', 'grey'];
+                intervalId = window.setInterval(function(){
+                    document.querySelector('body').style.backgroundColor =
+                    colorArr[parseInt(Math.random()*colorArr.length)]; //0<= r <6
+                    
+                    //현재시간값이 div에 출력
+                    let now = new Date();
+                    let timeStr = '<h1>';
+                    timeStr += now.getFullYear() + '-'; //<h1>2021-
+                    timeStr += (now.getMonth() + 1) + '-'; //<h1>2021-11-
+                    timeStr += now.getDate() + ' ';
+                    timeStr += now.getHours() + ':';
+                    timeStr += now.getMinutes() + ':';
+                    timeStr += now.getSeconds();
+                    timeStr += '</h1>';
+                    document.querySelector('div').innerHTML = timeStr;
+
+               }, 1*1000);
+            });
+
+            btObjArr[4].addEventListener('click', function(){
+                window.clearInterval(intervalId);
+            });
+
+       });
+   </script>
+</head>
+<body>
+    <div></div>
+    <button>새창띄우기</button>
+    <button>새창닫기</button>
+    <button>타이머setTimeout()</button>
+    <button>시간간격setInterval()</button>
+    <button>시간간격중지clearInterval()</button> 
+</body>
+</html>

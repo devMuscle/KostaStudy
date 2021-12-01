@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      //변수의 사용범위
+      var a;
+      a = 10;
+      console.log(window.a);
+      if (true) {
+        var a = "hello";
+      }
+      console.log(window.a); //hello
+
+      for (var i = 0; i < 5; i++) {
+        var a = i * 10;
+        console.log(a); //0,10,20,30,40
+      }
+      console.log(a); //40
+
+      var f1;
+      f1 = function () {
+        var a = true;
+        b = "window객체 scope변수입니다";
+        console.log("함수 내부: a=" + a);
+        console.log("함수 내부: b=" + b);
+      };
+      f1();
+      console.log(a); //40
+      console.log(b); //window객체 scope변수입니다
+
+      /* let : 블럭scope변수로 선언하기 */
+      let leta;
+      leta = 10;
+      console.log("leta=" + leta); //10
+      console.log("window.leta=" + window.leta); //undefined
+
+      if (true) {
+        let leta = "hello";
+        console.log("if block leta=" + leta); //hello
+      }
+      console.log("outer if block. leta=" + leta); //10
+
+      let f2 = function () {
+        let leta = true;
+        var vara = 1;
+        console.log("함수 내부 leta:" + leta); //true
+        console.log("함수 내부 vara:" + vara); //1
+        if (true) {
+          let leta = "test";
+          var vara = "test";
+          console.log("함수의 if내부 leta: " + leta); //10
+          console.log("함수의 if내부 vara: " + vara); //error
+        }
+        console.log("함수내부 leta:" + leta); //leta:true
+        console.log("함수내부 vara:" + vara); //vara:test
+      };
+      f2();
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <script>
+      let obj1 = {
+        id: "id1",
+        pwd: "p1",
+        name: "오문정",
+        work: function () {
+          console.log(this.id + "," + this.name + "프로그램 개발을 합니다");
+        },
+      };
+      console.log(obj1.id);
+      obj1.name = "홍길동";
+      obj1.work();
+    </script>
+  </head>
+</html>

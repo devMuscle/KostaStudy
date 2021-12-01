@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      div.selected > select.sigungu {
+        display: none;
+      }
+      div.a{
+          width:500px;
+          background-color:gray;
+      }
+    </style>
+    <script>
+      window.addEventListener("load", function () {
+        // //DOM트리에서 버튼객체찾기
+        // console.log(document.querySelector("div.calculator > button"));
+        let calcBtObjArr = document.querySelectorAll("div.calculator > button");
+        // console.log(calcBtObjArr);
+        let calcInputObj = document.querySelector("div.calculator>input");
+
+        //각 button이 클릭될때마다 button의 textnode값을
+        //   input의 value 속성으로 대입한다
+        // for (var i = 0; i < calcBtObjArr.length; i++) {
+        //   let calcBtObj = calcBtObjArr[i];
+        //   calcBtObj.addEventListener("click", function () {
+        //     var numText = calcBtObj.innerText;
+        //     calcInputObj.value = numText;
+        //   });
+        // }
+        calcBtObjArr.forEach(function (calcBtObj, i) {
+          calcBtObj.addEventListener("click", function () {
+            var numText = calcBtObj.innerText;
+            calcInputObj.value = numText;
+          });
+        });
+
+        /*-----checkbox들------*/
+        //DOM트리에서 checkbox객체들 찾기
+        var checkboxObjArr = document.querySelectorAll(
+          "div.checked > input[type=checkbox]"
+        );
+        var checkboxAllObj = checkboxObjArr[0];
+        checkboxAllObj.addEventListener("click", function () {
+          if (checkboxAllObj.checked) {
+            alert("All 체크되었습니다");
+          } else {
+            alert("All 체크해제되었습니다");
+          }
+          for (var i = 1; i < checkboxObjArr.length; i++) {
+            checkboxObjArr[i].checked = checkboxAllObj.checked;
+          }
+        });
+
+        /*----select----*/
+        //DOM트리에서 select객체찾기
+        var selectObj = document.querySelector("div.selected > select.sido");
+        // selectObj.addEventListener("change", function () {
+        //   console.log(selectObj.value + "변경됨");
+        // });
+
+        var selectObj2 = document.querySelector(
+          "div.selected > select.sigungu"
+        );
+        selectObj.addEventListener("change", function () {
+          console.log(selectObj.value + "변경됨");
+
+          selectObj2.style.display = "none";
+          let options = "";
+          switch (selectObj.value) {
+            case "서울시":
+              options += "<option>강북구</option>";
+              options += "<option>강동구</option>";
+              options += "<option>강남구</option>";
+              options += "<option>강서구</option>";
+              selectObj2.innerHTML = options;
+              selectObj2.style.display = "inline-block";
+              break;
+            case "경기도":
+              options += "<option>성남시</option>";
+              options += "<option>안양시</option>";
+              options += "<option>파주시</option>";
+              options += "<option>의정부시</option>";
+              selectObj2.innerHTML = options;
+              selectObj2.style.display = "inline-block";
+              break;
+            case "전북":
+              options += "<option>전주시</option>";
+              selectObj2.innerHTML = options;
+              selectObj2.style.display = "inline-block";
+              break;
+            case "경북":
+              options += "<option>포항시</option>";
+              selectObj2.innerHTML = options;
+              selectObj2.style.display = "inline-block";
+              break;
+          }
+        });
+
+        /*---keyboard----*/
+        //DOM트리에서 div.keyboard의 input객체찾기
+        var inputObj = document.querySelector(
+          "div.keyboard > input[type=text]"
+        );
+        inputObj.addEventListener("click", function () {
+          console.log("click");
+        });
+        inputObj.addEventListener("focus", function () {
+          console.log("focus");
+        });
+        //keydown->keypress->keyup
+        inputObj.addEventListener("keyup", function (event) {
+          alert("입력된값:" + event.key);
+          console.log(inputObj.value); 
+          let inputValue = inputObj.value;
+          inputObj.value = inputValue.toUpperCase();
+        });
+
+        /*--suvmit*/
+        //1. 전송버튼click이벤트발생
+        //2. 폼 submit이벤트발생,이벤트핸들러실행
+        //3. 기본이벤트핸들러 실행
+        //DOM트리에서 div.submit>form객체찾기
+        let formObj = document.querySelector("div.submit > form");
+        formObj/addEventListener('submit',function(){
+            alert('폼 submit됨');
+        })
+        //DOM트리에서 div.submit>form>button객체찾기
+        let submitBtObj = document.querySelector('div.submit > form > button');
+        submitBtObj.addEventListener('click', function(){
+
+        });
+
+        /*----a----*/
+        let divAObj = document.querySelector('div.a');
+        divAObj.addEventListener('click', function(){
+            divAObj.style.backgroundColor = 'red';
+            divAObj.style.border = '1px solid';
+        });
+
+        let aObj = document.querySelector('div.a > a');
+        aObj.addEventListener('click', function(event){
+            alert('a 클릭됨');
+            //js에서는 특수문자중 _,&만 가능
+            //CSS의 property중 background-color 같은 -포함프로퍼티를
+            //js에서 사용하려면 backgroundcolor로 사용해야함
+            aObj.style.backgroundColor = 'yellow';
+            event.preventDefault(); //기본이벤트핸들러금지
+            event.stopPropagation(); //이벤트전파 중지
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="calculator">
+      <input type="text" readonly />
+      <button>7</button><button>8</button><button>9</button> <button>4</button
+      ><button>5</button><button>6</button> <button>1</button><button>2</button
+      ><button>3</button>
+      <button>0</button>
+    </div>
+    <div class="checked">
+      <input type="checkbox" />All<br />
+      <input type="checkbox" checked />JABA &nbsp;&nbsp;
+      <input type="checkbox" />SQL &nbsp;&nbsp;
+      <input type="checkbox" />JAVASCRIPT &nbsp;&nbsp;
+    </div>
+    <div class="selected">
+      <select class="sido">
+        <option>시도를 선택하세요</option>
+        <option>서울시</option>
+        <option>경기도</option>
+        <option>전북</option>
+        <option>경북</option>
+      </select>
+      <select class="sigungu">
+        <option>시군구를 선택하세요</option>
+      </select>
+    </div>
+    <div class="keyboard">
+      <input type="text" />
+    </div>
+    <div class="submit">
+      <form method = "get" action"http://www.naver.com>
+        <input type="text" name="t" value="test"> <br>
+        <button>전송</button>
+      </form>
+    </div>
+    <div class="a">
+        <a href="http://www.google.com">구글</a>
+    </div>
+  </body>
+</html>

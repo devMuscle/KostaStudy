@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script>
+      window.addEventListener("load", function () {
+        window.alert("1");
+        //DOM트리에서 button객체찾기
+        var btObj = document.querySelector("button");
+
+        //innerHTML : element객체의 textnode값 얻기
+        console.log(btObj.innerHTML);
+
+        var divObj = document.querySelector("div");
+        console.log(divObj.innerHTML);
+
+        //innerText : element객체의 text값 얻기
+        console.log(divObj.innerText);
+
+        var imgObj = document.querySelector("img");
+        console.log(imgObj.src + ":" + imgObj.alt);
+      });
+    </script>
+  </head>
+  <body>
+    <script>
+      window.alert("2");
+    </script>
+    <button>일반버튼</button>
+    <div>
+      문재인 정부의 원전 정책을 놓고 ‘계승’과 ‘폐기’로 대립각을 세우고 있는<br />
+      이재명 더불어민주당 대통령 후보와 윤석열 국민의힘 대통령 후보는<br />
+      국가 온실가스 감축 목표를 두고도 정반대 입장을 보이고 있다.
+    </div>
+    <img src="../images/2021_christmas_drink1.png" alt="드링크1" />
+    <script>
+      window.alert("3");
+    </script>
+  </body>
+</html>

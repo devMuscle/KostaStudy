@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      window.addEventListener("load", function () {
+        let btObj = document.querySelector("button");
+        btObj.addEventListener("click", function () {
+          //부모창의 div객체찾기
+          let parentWindow = window.opener; //부모창객체
+          let parentDivObj = parentWindow.document.querySelector("div");
+          parentDivObj.innerHTML = "popup";
+          window.self.close();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    새창내용
+    <button>창닫기</button>
+  </body>
+</html>
