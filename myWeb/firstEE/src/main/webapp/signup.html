@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>회원가입</title>
+    <meta charset="UTF-8" />
+    <style>
+      div.signup > form > button[type="submit"] {
+        display: none;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        let $submitBtObj = $("div.signup>form>:submit");
+        let $idObj = $('div.signup>form>input[name="id"]');
+
+        $idObj.focus(function () {
+          $submitBtObj.hide();
+        });
+
+        let $iddupchkBtObj = $("div.signup>form>button.iddupchk");
+        $iddupchkBtObj.click(function () {
+          if ($.trim($idObj.val()) == "") {
+            alert("아이디를 입력하세요");
+            $idObj.focus();
+            return false;
+          }
+
+          let ajaxUrl = "./$iddupchk";
+          let ajaxMethod = " get";
+          let idValue = $idObj.val().trim();
+          $.ajax({
+            url: ajaxUrl,
+            method: ajaxMethod,
+            data: (id = idValue),
+            success: function (responseData) {
+              alert("사용가능한 아이디입니다" + responseData);
+            },
+            error: function (xhr) {
+              alert("중복된 아이디입니다" + xhr.status);
+            },
+          });
+
+          $submitBtObj.show();
+          return false;
+        });
+
+        let $formObj = $("div.signup>form");
+        $formObj.submit(function (event) {
+          let $passwordObjArr = $("div.signup>form>input[type=password]");
+          if ($($passwordObjArr[0]).val() != $($passwordObjArr[1]).val()) {
+            alert("비밀번호가 일치하지 않습니다");
+            $($passwordObjArr[0]).focus();
+            return false;
+          }
+        });
+      });
+    </script>
+    <title>고객가입</title>
+  </head>
+  <body>
+    <div class="signup">
+      <h1>고객가입</h1>
+      <form action="http://localhost:8888/signup" method="post">
+        <label for="id">아이디: </label>
+        <input type="text" name="id" id="id" required />
+        <button type="button" class="iddupchk">아이디중복확인</button>
+        <br />
+        <label for="pwd">비밀번호: </label>
+        <input type="password" name="pwd" id="pwd" required />
+        <br />
+        <label for="pwd">비밀번호확인: </label>
+        <input type="password" name="pwd1" id="pwd1" required />
+        <br />
+        <label for="name">이름: </label>
+        <input type="password" name="name" id="name" required />
+        <br />
+        주소: <input type="text" />
+        <button type="button" class="searchzip">우편번호찾기</button><br />
+        <input type="text" /><br />
+        <input type="text" name="address" /><br />
+        <button type="submit">가입</button>
+        <button type="reset">CLEAR</button>
+      </form>
+    </div>
+  </body>
+</html>

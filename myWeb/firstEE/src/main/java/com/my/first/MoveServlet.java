@@ -24,9 +24,16 @@ public class MoveServlet extends HttpServlet {
 			out.print("<a href=\"move?t=aaa&opt=forward\">포워드</a><br>");
 			out.print("<a href=\"move?t=aaa&opt=include\">인클루드</a>");
 		}else if(opt.equals("redirect")) {
+			String resultMsg = "성공";
+			request.setAttribute("msg", resultMsg);
+			
 			response.sendRedirect("result");
 		}else if(opt.equals("forward")) {
 			out.print("before forward");
+			String resultMsg = "성공";
+			request.setAttribute("msg", resultMsg);
+			
+			//String path = "result";
 			String path = "/result";
 			RequestDispatcher rd = request.getRequestDispatcher(path);
 			rd.forward(request, response);

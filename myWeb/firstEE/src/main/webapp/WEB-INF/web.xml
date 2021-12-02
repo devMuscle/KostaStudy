@@ -9,6 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+    <param-name>developer</param-name>
+    <param-value>King jipyo</param-value>
+  </context-param>
   <servlet>
     <description></description>
     <display-name>FirstServlet</display-name>
@@ -68,5 +72,39 @@
   <servlet-mapping>
     <servlet-name>ResultServlet</servlet-name>
     <url-pattern>/result</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ParamServlet</display-name>
+    <servlet-name>ParamServlet</servlet-name>
+    <servlet-class>com.my.first.ParamServlet</servlet-class>
+    <init-param>
+      <param-name>fileName</param-name>
+      <param-value>aaa.txt</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ParamServlet</servlet-name>
+    <url-pattern>/param</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.my.customer.controll.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>idDupChkServlet</display-name>
+    <servlet-name>idDupChkServlet</servlet-name>
+    <servlet-class>com.my.customer.controll.idDupChkServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>idDupChkServlet</servlet-name>
+    <url-pattern>/iddupchk</url-pattern>
   </servlet-mapping>
 </web-app>
