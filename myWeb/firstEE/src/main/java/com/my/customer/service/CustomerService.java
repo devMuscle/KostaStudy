@@ -1,6 +1,7 @@
 package com.my.customer.service;
 
 import com.my.customer.dao.CustomerDAOOracle;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.customer.vo.Customer;
 
@@ -29,11 +30,11 @@ public class CustomerService {
 	
 	public void addupchk(String id) throws FindException{
 		dao = new CustomerDAOOracle();
-		try {
-			Customer c = dao.findById(id);
-		} catch (FindException e) {
-			throw new FindException();
-		}
-		
+		Customer c = dao.findById(id);
+	}
+	
+	public void signup(Customer c) throws AddException{
+		dao = new CustomerDAOOracle();
+		dao.add(c);
 	}
 }

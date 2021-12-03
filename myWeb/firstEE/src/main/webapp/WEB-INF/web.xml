@@ -107,4 +107,34 @@
     <servlet-name>idDupChkServlet</servlet-name>
     <url-pattern>/iddupchk</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SuccessServlet</display-name>
+    <servlet-name>SuccessServlet</servlet-name>
+    <servlet-class>com.my.customer.view.SuccessServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SuccessServlet</servlet-name>
+    <url-pattern>/success</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FailServlet</display-name>
+    <servlet-name>FailServlet</servlet-name>
+    <servlet-class>com.my.customer.view.FailServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FailServlet</servlet-name>
+    <url-pattern>/fail</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SignupServlet</display-name>
+    <servlet-name>SignupServlet</servlet-name>
+    <servlet-class>com.my.customer.controll.SignupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignupServlet</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
 </web-app>

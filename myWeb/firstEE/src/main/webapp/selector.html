@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>selector.html</title>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <style>
       * {
         box-sizing: border-box;
@@ -112,32 +112,17 @@
               //AJAX요청,응답
               ajaxUrl = menuHref;
               ajaxMethod = "GET";
-              // $.ajax({
-              //     url: ajaxUrl,
-              //     method: ajaxMethod,
-              //     success: function(responseData){
-              //         // console.log(responseData);
-              //         $('section>div.articles').empty();
-              //         $('section>div.articles').html(responseData);
-              //     },
-              //     error:function(xhr){
-              //         alert("응답실패:" + xhr.status);
-              //     }
-              // });
 
               $("section>div.articles").empty();
-              $("section>div.articles").load(
-                ajaxUrl,
-                function (responseText, textStatus, jqXHR) {
-                  if (jqXHR != 200) {
-                    alert("응답실패:" + jqXHR.status);
-                  }
-                }
-              );
+              $("section>div.articles").load(ajaxUrl);
               return false; //기본이벤트핸들러금지, 이벤트전파중지
             // break;
             case "signup.html":
-              break;
+              ajaxUrl = menuHref;
+              ajaxMethod = "GET";
+              $("section>div.articles").empty();
+              $("section>div.articles").load(ajaxUrl);
+              return false;
           }
         });
         /*--메뉴가 클릭되었을때 END--*/

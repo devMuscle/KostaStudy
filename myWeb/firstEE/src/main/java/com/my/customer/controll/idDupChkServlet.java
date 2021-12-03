@@ -23,29 +23,29 @@ public class idDupChkServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String idValue = request.getParameter("id");
-//		System.out.println("입력받은 id값:" + idValue);
-//		
-//		String resultMsg = "";
-//		CustomerService service = new CustomerService();
-//		
-//		try {
-//			service.addupchk(idValue);
-//			System.out.println("중복된 아이디입니다");
-//			resultMsg = "중복된 아이디입니다";
-//		} catch (FindException e) {
-//			System.out.println("사용가능한 아이디입니다");
-//			resultMsg = "사용가능한 아이디입니다";
-//		}
-//				
-//		String path = "result";
-//		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-//		request.setAttribute("msg", resultMsg);
-//		dispatcher.forward(request, response);
-		PrintWriter out = response.getWriter();
+		String idValue = request.getParameter("id");
+		System.out.println("입력받은 id값:" + idValue);
 		
-		//응답출력스트림에 출력
-		out.print("애애애애앵");
+		String resultMsg = "";
+		CustomerService service = new CustomerService();
+		
+		String path = "result";
+		try {
+			service.addupchk(idValue);
+			System.out.println("중복된 아이디입니다");
+			resultMsg = "중복된 아이디입니다";
+			path = "fail";
+		} catch (FindException e) {
+			System.out.println("사용가능한 아이디입니다");
+			resultMsg = "사용가능한 아이디입니다";
+			path = "success";
+		}
+
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+		request.setAttribute("msg", resultMsg);
+		dispatcher.forward(request, response);
+		
 	}
 
 	/**

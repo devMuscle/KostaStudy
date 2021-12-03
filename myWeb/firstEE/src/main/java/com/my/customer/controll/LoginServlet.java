@@ -29,17 +29,21 @@ public class LoginServlet extends HttpServlet {
 		String resultMsg = "";
 		CustomerService service;
 		service = new CustomerService();
+		
+		String path = "result";
 		try {
 			service.login(idValue, pwdValue);
 			System.out.println("로그인 성공");
 			resultMsg = "로그인 성공";
+			path = "success";
 		}catch(FindException e) {
 			System.out.println(e.getMessage());
 			resultMsg = "로그인 실패"; //resultMSg = e.getMessage();
+			path = "fail";
 		}
 		request.setAttribute("msg", resultMsg);
 		
-		String path = "result";
+		
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 		
