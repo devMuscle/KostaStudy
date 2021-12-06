@@ -137,4 +137,14 @@
     <servlet-name>SignupServlet</servlet-name>
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProductListServlet</display-name>
+    <servlet-name>ProductListServlet</servlet-name>
+    <servlet-class>com.my.product.controll.ProductListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductListServlet</servlet-name>
+    <url-pattern>/productlist</url-pattern>
+  </servlet-mapping>
 </web-app>
