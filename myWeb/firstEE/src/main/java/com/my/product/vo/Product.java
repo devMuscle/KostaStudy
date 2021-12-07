@@ -53,7 +53,7 @@ public class Product {
 	public void setProdNo(String prodNo) {
 		this.prodNo = prodNo;
 	}
-	public String getProdNmae() {
+	public String getProdName() {
 		return prodNmae;
 	}
 	public void setProdNmae(String prodNmae) {

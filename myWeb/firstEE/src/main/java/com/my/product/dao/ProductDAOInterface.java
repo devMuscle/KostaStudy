@@ -5,6 +5,7 @@ import java.util.List;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
+import com.my.exception.RemoveException;
 import com.my.product.vo.Product;
 
 public interface ProductDAOInterface {
@@ -38,7 +39,7 @@ public interface ProductDAOInterface {
 	 */
 	public void add(Product product) throws AddException;
 	public void modify(Product product) throws ModifyException;
-	public void remove(String prodNo) throws FindException;
+	public void remove(String prodNo) throws FindException, RemoveException;
 	
 	
 }

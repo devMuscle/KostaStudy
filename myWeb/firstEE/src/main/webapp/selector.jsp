@@ -124,6 +124,15 @@
               $("section>div.articles").empty();
               $("section>div.articles").load(ajaxUrl);
               return false;
+            
+            case "productlist":
+            	ajaxUrl = menuHref;
+            	$('section>div.articles').load(ajaxUrl,function(responseText, textStatus, jqXHR){
+            		if(jqXHR.status != 200){
+            			alert('응답실패:' + jqXHR.status);
+            		}
+            	});
+            	return false;
           }
         });
         /*--메뉴가 클릭되었을때 END--*/

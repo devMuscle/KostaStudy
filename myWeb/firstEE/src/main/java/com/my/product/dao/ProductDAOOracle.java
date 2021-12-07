@@ -10,6 +10,7 @@ import java.util.List;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
+import com.my.exception.RemoveException;
 import com.my.product.vo.Product;
 import com.my.sql.MyConnection;
 
@@ -33,13 +34,13 @@ public class ProductDAOOracle implements ProductDAOInterface {
 				Product p = new Product(prodNo, prodName, prodPrice);
 				list.add(p);
 			}
-			if(list.size()==0) {
-				throw new FindException("상품이 없어용");
+			if(list.size() == 0) {
+				throw new FindException("상품이 없습니다");
 			}
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new FindException(e.getMessage());	
+			throw new FindException(e.getMessage());
 		}finally {
 			MyConnection.close(rs, pstmt, con);
 		}
@@ -47,8 +48,27 @@ public class ProductDAOOracle implements ProductDAOInterface {
 
 	@Override
 	public Product findByNo(String prodNo) throws FindException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null; //DB연결
+		PreparedStatement pstmt = null; //SQL송신
+		ResultSet rs = null; //결과 수신
+		String selectByNoSQL = "SELECT * FROM product WHERE prod_no=?";
+		try {
+			con = MyConnection.getConnection();
+			pstmt = con.prepareStatement(selectByNoSQL);
+			pstmt.setString(1, prodNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String prodName = rs.getString("prod_name");
+				int prodPrice = rs.getInt("prod_price");
+				return new Product(prodNo, prodName, prodPrice);
+			}
+			throw new FindException("상품이 없습니다");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		}finally {
+			MyConnection.close(rs, pstmt, con);
+		}
 	}
 
 	@Override
@@ -70,9 +90,15 @@ public class ProductDAOOracle implements ProductDAOInterface {
 	}
 
 	@Override
-	public void remove(String prodNo) throws FindException {
+	public void remove(String prodNo) throws RemoveException {
 		// TODO Auto-generated method stub
 
+	}
+	public static void main(String[] args) throws FindException {
+		ProductDAOOracle dao = new ProductDAOOracle();
+		String prodNo = "C0001";
+		Product p = dao.findByNo(prodNo);
+		System.out.println(p);
 	}
 
 }

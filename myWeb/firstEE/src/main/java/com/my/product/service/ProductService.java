@@ -11,4 +11,8 @@ public class ProductService {
 		ProductDAOOracle dao = new ProductDAOOracle();
 		return dao.findAll();
 	}
+	public Product findByNo(String prodNo) throws FindException{
+		ProductDAOOracle dao = new ProductDAOOracle();
+		return dao.findByNo(prodNo);
+	}
 }
