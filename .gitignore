@@ -7,3 +7,4 @@ myWeb/KostaMarket
 myWeb/Servers
 myse/Servers/
 *.log
+.metadata/

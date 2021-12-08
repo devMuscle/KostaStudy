@@ -157,4 +157,24 @@
     <servlet-name>ProductDetailServlet</servlet-name>
     <url-pattern>/productdetail</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PutCartServlet</display-name>
+    <servlet-name>PutCartServlet</servlet-name>
+    <servlet-class>com.my.cart.control.PutCartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PutCartServlet</servlet-name>
+    <url-pattern>/putcart</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartListServlet</display-name>
+    <servlet-name>CartListServlet</servlet-name>
+    <servlet-class>com.my.cart.control.CartListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartListServlet</servlet-name>
+    <url-pattern>/cartlist</url-pattern>
+  </servlet-mapping>
 </web-app>
