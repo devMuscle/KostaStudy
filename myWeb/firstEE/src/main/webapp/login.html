@@ -1,6 +1,6 @@
 <!-- <html>
   <head> -->
-<meta charset="UTF-8" />
+<!-- <meta charset="UTF-8" />  -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script>
   $(function () {
@@ -22,7 +22,7 @@
             alert("로그인실패");
           } else if (resultNum == 1) {
             //로그인성공
-            alert("로그인성공");
+            location.href="./selector.jsp";
           }
         },
         error: function (xhr) {

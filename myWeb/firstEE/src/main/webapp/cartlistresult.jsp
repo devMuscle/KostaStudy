@@ -15,6 +15,28 @@ if(cart == null) {
 <%}else{
 	Set<Product>products = cart.keySet();
 %>
+<script>
+	$(function(){
+		/*--주문하기 버튼클릭 START--*/
+		$('button.addorder').click(function(){
+			let ajaxUrl = "./addorder";
+			$.ajax({
+				url: ajaxUrl,
+				success: function(responseObj){
+					if(responseObj.status == 0){ //주문실패
+						alert(responseObj.msg); 
+					}else {//주문성공
+						//location.href="./selector.jsp";
+						//$('header>nav>ul>li>a[href=productlist]').trigger('click'); //상품목록보기
+						//주문목록보기
+					}
+				}
+			});
+			return false;
+		});
+		/*--주문하기 버튼클릭 END--*/
+	});
+</script>
 <h2>장바구니 목록</h2>
 <table>
 <tr><th>상품번호</th>
@@ -32,7 +54,7 @@ if(cart == null) {
 <%  } //end for
 %>
 </table>
-<button>주문하기</button>
+<button class="addorder">주문하기</button>
 <%} //end if
 %>
 <html>

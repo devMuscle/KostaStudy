@@ -143,6 +143,17 @@
             		}
             	});
             	return false;
+            case "logout" :
+            	ajaxUrl = menuHref;
+            	$.ajax({
+            		url:ajaxUrl,
+            		success:function(){
+            			location.href="./selector.jsp";
+            		},
+            		error:function(xhr){
+            			alert("응답실패:"+ xhr.status);
+            		}
+            	});
           }
         });
         /*--메뉴가 클릭되었을때 END--*/

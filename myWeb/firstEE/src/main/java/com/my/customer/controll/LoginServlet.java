@@ -3,6 +3,7 @@ package com.my.customer.controll;
 import java.io.IOException;
 
 import com.my.customer.service.CustomerService;
+import com.my.customer.vo.Customer;
 import com.my.exception.FindException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -10,16 +11,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class LoginServlet2
- */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String idValue = request.getParameter("id");
@@ -30,10 +26,17 @@ public class LoginServlet extends HttpServlet {
 		CustomerService service;
 		service = new CustomerService();
 		
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginInfo"); //초기화
+		
 		String path = "result";
+		//2.비지니스로직 호출
 		try {
-			service.login(idValue, pwdValue);
+			Customer c = service.login(idValue, pwdValue);
 			System.out.println("로그인 성공");
+			session.setAttribute("loginInfo", c);
+			
+			//3.응답결과만들기
 			resultMsg = "로그인 성공";
 			path = "success";
 		}catch(FindException e) {
