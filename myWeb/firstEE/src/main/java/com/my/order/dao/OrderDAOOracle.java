@@ -2,6 +2,7 @@ package com.my.order.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,8 +75,65 @@ public class OrderDAOOracle implements OrderDAOInterface {
 
 	@Override
 	public List<OrderInfo> findById(String orderId) throws FindException {
-		// TODO Auto-generated method stub
-		return null;
+		String selectByIdSQL = "SELECT info.order_no,\r\n"
+				+ "         info.order_dt,\r\n"
+				+ "         line.order_prod_no,\r\n"
+				+ "         p.prod_name,\r\n"
+				+ "        p.prod_price,\r\n"
+				+ "         line.order_quantity\r\n"
+				+ " FROM order_info info\r\n"
+				+ "JOIN order_line line ON info.order_no=line.order_no\r\n"
+				+ "JOIN product p ON line.order_prod_no = p.prod_no\r\n"
+				+ "WHERE info.order_id=?\r\n"
+				+ "ORDER BY info.order_no DESC, p.prod_name";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		
+		try {
+			con = MyConnection.getConnection();
+			pstmt = con.prepareStatement(selectByIdSQL);
+			pstmt.setString(1, orderId);
+			rs = pstmt.executeQuery();
+			
+			List<OrderInfo> infos = new ArrayList<>();
+			OrderInfo info = null;
+			List<OrderLine> lines = null;
+			int old_order_no = 0; //주문번호는 최소 1부터 시작
+			while(rs.next()) {
+				int order_no = rs.getInt("order_no");
+				java.sql.Date order_dt = rs.getDate("order_dt");
+				String prodNo = rs.getString("order_prod_no");
+				String prodName = rs.getString("prod_name");
+				int prodPrice = rs.getInt("prod_price");
+				int orderQuantity = rs.getInt("order_quantity");
+				if(old_order_no != order_no) {
+					info = new OrderInfo();
+					info.setOrderNo(order_no);
+					info.setOrderDt(order_dt);
+					lines = new ArrayList<>();
+					info.setLines(lines);
+					infos.add(info);
+					old_order_no = order_no;
+				}
+				OrderLine line = new OrderLine();
+				line.setOrderNo(order_no);
+				Product p = new Product();
+				p.setProdNo(prodNo); p.setProdNmae(prodName); p.setProdPrice(prodPrice);
+				line.setOrderProduct(p);
+				line.setOrderQuantity(orderQuantity);
+				lines.add(line);
+			}
+			if(infos.size() == 0) {
+				throw new FindException("주문이 없습니다");
+			}
+			return infos;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		} finally {
+			MyConnection.close(rs, pstmt, con);
+		}
 	}
 
 	@Override

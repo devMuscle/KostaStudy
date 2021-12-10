@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.removeAttribute("loginInfo"); //초기화
 		
-		String path = "result";
+		String path = "jsonresult.jsp";
 		//2.비지니스로직 호출
 		try {
 			Customer c = service.login(idValue, pwdValue);
@@ -38,31 +38,15 @@ public class LoginServlet extends HttpServlet {
 			
 			//3.응답결과만들기
 			resultMsg = "로그인 성공";
-			path = "success";
+			request.setAttribute("status", 1);
 		}catch(FindException e) {
 			System.out.println(e.getMessage());
 			resultMsg = "로그인 실패"; //resultMSg = e.getMessage();
-			path = "fail";
+			request.setAttribute("status", 0);
 		}
 		request.setAttribute("msg", resultMsg);
-		
-		
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
-		
-		//		CustomerDAOOracle dao;
-//		dao = new CustomerDAOOracle();
-//		try {
-//			Customer c = dao.findById(idValue);
-//			if(c.getPwd().equals(pwdValue)) {
-//				System.out.println("로그인 성공");
-//			}else {
-//				System.out.println("로그인 실패");
-//			}
-//		} catch (FindException e) {
-//			e.printStackTrace();
-//			System.out.println("로그인 실패"); //e.getMessage()-아이디가 없어요
-//		}
 	}
 }
 	

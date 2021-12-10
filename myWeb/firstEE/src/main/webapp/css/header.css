@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+@import url("base.css");
+
+header {
+	background-color: #f6f5ef;
+	border-bottom: 1px solid #e5e5e5;
+	height: 100px;
+}
+
+header>h1 {
+	width: 45px;
+	height: 45px;
+	float: left;
+}
+
+header>h1.logo>a {
+	background-image: url(../images/logo.png);
+	background-repeat: no-repeat;
+	background-size: 45px auto;
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	text-indent: -20000px;
+}
+
+header>nav {
+	background-color: grey;
+	margin: 21.4px auto;
+	float: right;
+}
+
+header>nav>ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+header>nav>ul>li {
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+}
+
+header>nav>ul>li>a {
+	text-decoration: none;
+}
+
+header>nav>ul>li>a:hover {
+	background-color: #f6f5ef;
+}

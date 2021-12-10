@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      div.signup > form > button[type="submit"] {
-        /* display:none; */
-        visibility: hidden;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/signup.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(function () {
@@ -37,14 +32,13 @@
             url: ajaxUrl,
             method: ajaxMethod,
             data: { id: idValue },
-            success: function (responseData) {
+            success: function (responseObj) {
               //alert(responseData);
               //응답상태가 '이미 사용중인 아이디'인 경우 경고창보여주기
               //응답상태가 '사용가능한 아이디'인 경우 가입버튼보여주기
-              let resultNum = parseInt(responseData.trim());
-              if (resultNum == 0) {
+              if (responseObj.status == 0) {
                 alert("이미 사용중인 아이디입니다");
-              } else if (resultNum == 1) {
+              } else if (responseObj.status == 1) {
                 $submitBtObj.css("visibility", "visible");
               }
             },

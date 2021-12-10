@@ -16,4 +16,11 @@ if(c == null) { //로그인이 안된 경우
 %>
 	<li><a href="productlist">상품</a></li>
 	<li><a href="cartlist">장바구니</a></li>
+<%
+if(c != null) {
+%>
+	<li><a href="orderlist">주문목록</a></li>
+<%
+}
+%>
 </ul>

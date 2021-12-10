@@ -2,35 +2,11 @@
   <head> -->
 <!-- <meta charset="UTF-8" />  -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<link rel="stylesheet" href="./css/login.css">
+<script src="./js/login.js"></script>
 <script>
   $(function () {
-    let $loginFormObj = $("div.login>form");
-    $loginFormObj.submit(function () {
-      let ajaxUrl = $(this).attr("action");
-      let ajaxMethod = $(this).attr("method");
-      let idValue = $(this).find("input[name=id]").val();
-      let pwdValue = $(this).find("input[name=pwd]").val();
-      $.ajax({
-        url: ajaxUrl,
-        method: ajaxMethod,
-        data: { id: idValue, pwd: pwdValue },
-        success: function (responseData) {
-          alert("응답성공" + responseData);
-          let resultNum = parseInt(responseData.trim());
-          if (resultNum == 0) {
-            //로그인실패
-            alert("로그인실패");
-          } else if (resultNum == 1) {
-            //로그인성공
-            location.href="./selector.jsp";
-          }
-        },
-        error: function (xhr) {
-          alert("응답실패 status:" + xhr.status);
-        },
-      });
-      return false; //기본이벤트핸들러 금지 + 이벤트전파 중지
-    });
+    loginClick();
   });
 </script>
 <!-- </head>

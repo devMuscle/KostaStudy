@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+@import url("base.css");
+
+section {
+	height: 750px;
+}
+
+section>div.articles {
+	width: 90%;
+	height: 100%;
+	border: 1px solid;
+	overflow: auto;
+	float: left;
+}
+
+section article {
+	width: 100%;
+	height: 357px;
+	background-color: pink;
+	border: white 1px solid;
+}
+
+section>div>article:first-child>figure {
+	margin-top: 5px;
+}
+
+section>div>article:first-child>figure>img.drink1 {
+	width: 200px;
+}
+
+section>div>article:first-child>figure>img.drink2 {
+	width: 300px;
+}
+
+section>aside {
+	width: 10%;
+	float: right;
+}

@@ -29,16 +29,18 @@ public class idDupChkServlet extends HttpServlet {
 		String resultMsg = "";
 		CustomerService service = new CustomerService();
 		
-		String path = "result";
+		String path = "jsonresult.jsp";
 		try {
 			service.addupchk(idValue);
 			System.out.println("중복된 아이디입니다");
 			resultMsg = "중복된 아이디입니다";
-			path = "fail";
+			request.setAttribute("status", 0);
+//			path = "fail";
 		} catch (FindException e) {
 			System.out.println("사용가능한 아이디입니다");
 			resultMsg = "사용가능한 아이디입니다";
-			path = "success";
+			request.setAttribute("status", 1);
+//			path = "success";
 		}
 
 		
