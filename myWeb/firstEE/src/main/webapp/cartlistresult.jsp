@@ -4,8 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<style>
-</style>
+<link rel="stylesheet">
 <%
 Map<Product, Integer>cart = (Map)request.getAttribute("cart"); 
 String msg = "";

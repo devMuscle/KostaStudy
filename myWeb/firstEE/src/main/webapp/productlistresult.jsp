@@ -12,52 +12,15 @@ List<Product> list =
 <meta charset="UTF-8">
 <title>productlistresult.jsp</title>
  --%>
-<style>
-        *{
-            box-sizing: border-box;
-        }
-        
-        div.productlist{
-            width:100%;
-        }
-        div.productlist>div{
-            /*width:24%;*/
-            margin: 0.4%;
-            float:left;
-        }
-        div.productlist>div>ul{
-            list-style-type: none;
-            padding-left: 0px;
-        }
-        div.productlist>div>ul>li{
-            text-align:center;
-        }
-        div.productlist>div>ul>li>img{
-            width:100%;
-            /* max-width: 100%; */
-        }
-    </style>
+
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="./css/productlist.css">
+    <script src="./js/productlist.js"></script>
     <script>
         $(function(){
-        	let $divObj = $('div.productlist>div');
-        	$divObj.click(function(){
-        		/* console.log(this); */
-        		let prodNo = $(this).attr('id');
-        		let ajaxUrl = './productdetail';
-        		/* $.ajax({
-        			url: ajaxUrl,
-        			method : 'get',
-        			data : {prodNo: prodNo},
-        			success:function(responseData){
-        				let $articlesObj = $('section>div.articles');
-        				$articlesObj.empty();
-        				$articlesObj.html(responseData);
-        			}
-        		}); */
-        		$('section>div.articles').load('./productdetail?prodNo='+prodNo);
-        		return false;
-        	});
+        	/*--상품상세 클릭 START--*/
+        	productDetail();
+        	/*--상품상세 클릭 END--*/
         });
 	</script>
 <%-- </head>

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+* {
+	box-sizing: border-box;
+}
+
+div.productlist {
+	width: 100%;
+}
+
+div.productlist>div {
+	/*width:24%;*/
+	margin: 0.4%;
+	float: left;
+}
+
+div.productlist>div>ul {
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+div.productlist>div>ul>li {
+	text-align: center;
+}
+
+div.productlist>div>ul>li>img {
+	width: 100%;
+	/* max-width: 100%; */
+}

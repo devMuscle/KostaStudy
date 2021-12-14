@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>./jq/sse.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(function(){
+	var es = new EventSource('./demo_sse.jsp');
+// 	$(es).on("open",function(e){
+// 		console.log(e);
+// 	});
+// 	$(es).on("error",function(e){
+// 		console.log(e);
+// 	});
+	$(es).on("message", function(e){
+		var sseData = e.originalEvent.data;
+		$('body').empty();
+		var responseObj = JSON.parse(sseData);
+		var msg = '<h1>' + responseObj.msg + '</h1>';
+		var time = responseObj.time;
+		$("body").html(msg + time);
+	});
+	
+	$(es).on("first", function(e){
+        var sseData = e.originalEvent.data;
+        console.log(sseData);
+	});
+});
+</script>
+</head>
+<body>
+
+</body>
+</html>
