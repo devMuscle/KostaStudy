@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="./css/signup.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+<head>
+<link rel="stylesheet" href="./css/signup.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
       $(function () {
         //가입버튼객체
         let $submitBtObj = $("div.signup>form>:submit");
@@ -111,34 +113,26 @@
         /*--우편번호찾기 클릭되었을때 END--*/
       });
     </script>
-  </head>
-  <body>
-    <div class="signup">
-      <h1>고객가입</h1>
-      <form method="post" action="./signup" autocomplete="off">
-        <label for="id">아이디:</label>
-        <input type="text" name="id" id="id" required />
-        <button type="button" class="iddupchk">아이디중복확인</button>
-        <br />
-        <label for="pwd">비밀번호:</label>
-        <input type="password" name="pwd" id="pwd" required />
-        <br />
-        <label for="pwd1">비밀번호확인:</label>
-        <input type="password" name="pwd1" id="pwd1" required />
-        <br />
-        <label for="name">이름:</label>
-        <input type="text" name="name" id="name" required />
-        <br />
-        주소: <input type="text" class="zipcode" readonly size="5" />
-        <button type="button" class="searchzip">우편번호찾기</button>
-        <br />
-        <input type="text" class="addr1" readonly size="50" />
-        <br />
-        <input type="text" name="address" />
-        <br />
-        <button type="submit">가입</button>
-        <button type="reset">CLEAR</button>
-      </form>
-    </div>
-  </body>
+</head>
+<body>
+	<div class="signup">
+		<h1>고객가입</h1>
+		<form method="post" action="./signup" autocomplete="off">
+			<label for="id">아이디:</label> <input type="text" name="id" id="id"
+				required />
+			<button type="button" class="iddupchk">아이디중복확인</button>
+			<br /> <label for="pwd">비밀번호:</label> <input type="password"
+				name="pwd" id="pwd" required /> <br /> <label for="pwd1">비밀번호확인:</label>
+			<input type="password" name="pwd1" id="pwd1" required /> <br /> <label
+				for="name">이름:</label> <input type="text" name="name" id="name"
+				required /> <br /> 주소: <input type="text" class="zipcode" readonly
+				size="5" />
+			<button type="button" class="searchzip">우편번호찾기</button>
+			<br /> <input type="text" class="addr1" readonly size="50" /> <br />
+			<input type="text" name="address" /> <br />
+			<button type="submit">가입</button>
+			<button type="reset">CLEAR</button>
+		</form>
+	</div>
+</body>
 </html>

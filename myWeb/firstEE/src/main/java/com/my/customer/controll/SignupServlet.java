@@ -43,6 +43,7 @@ public class SignupServlet extends HttpServlet {
 			System.out.println("db에 입력실패");
 		}
 		
+		System.out.println("요청됨");
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
 		
