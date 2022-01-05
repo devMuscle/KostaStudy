@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<context:annotation-config/>
+	
+	
+	<!-- bean id="pDAO" class="com.my.product.dao.ProductDAOOracle"></bean>  -->
+	<context:component-scan base-package="com.my.product.dao"/>
+	<!-- <bean id="pService" class="com.my.product.service.ProductService"></bean> -->
+	<context:component-scan base-package="com.my.product.service"/>
+
+	<bean id="p" class="com.my.product.vo.Product">
+		<property name="prodNo" value="C0005" />
+		<!-- <property name="prodName" value="" /> -->
+		<property name="prodName">
+			<null />
+		</property>
+		<property name="prodPrice" value="1000" />
+	</bean>
+
+	<bean id="pp" class="com.my.product.vo.Product">
+		<constructor-arg index="0" value="C0007" />
+		<constructor-arg index="1" value="커피7" />
+		<constructor-arg index="2" value="1500" />
+	</bean>
+	
+	<bean id="ppp" class="com.my.product.vo.Product">
+		<property name="prodName" value="커피9"></property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<property name="driverClass"
+		value="oracle.jdbc.driver.OracleDriver">
+	</property>
+	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+	<property name="username" value="hr"></property>
+	<property name="password" value="hr"></property>
+	</bean>
+</beans>
+
