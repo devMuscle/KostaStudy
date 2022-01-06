@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="pDAO"  class="com.my.product.dao.ProductDAOOracle"></bean>
+	<bean id="pService"  class="com.my.product.service.ProductService">
+		<!-- <constructor-arg ref="pDAO"></constructor-arg> -->
+		<property name="dao" ref="pDAO"></property>
+	</bean>
+	<bean id="p" class="com.my.product.vo.Product">
+	   <property name="prodNo" value="C0005"/>
+	  <!--  <property name="prodName"  value="" /> -->
+	   <property name="prodName">
+	   	<null/>
+	   </property>
+	   <property name="prodPrice" value="1000"/>
+	</bean>
+	
+	<bean id="pp" class="com.my.product.vo.Product" >
+		<constructor-arg index="0" value="C0007"/>
+		<constructor-arg index="1" value="커피7"/>
+		<constructor-arg index="2" value="1500"/>
+	</bean>
+</beans>
