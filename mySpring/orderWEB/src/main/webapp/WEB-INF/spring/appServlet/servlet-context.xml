@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 
@@ -18,12 +20,22 @@
 	<property name="password" value="hr"></property>
 	</bean>
 	
+	<context:component-scan base-package="com.my.control"></context:component-scan>
 	<context:component-scan base-package="com.my.product.dao"></context:component-scan>
 	<context:component-scan base-package="com.my.product.service"></context:component-scan>
 	<context:component-scan base-package="com.my.product.control"></context:component-scan>
+	<context:component-scan base-package="com.my.customer.dao"></context:component-scan>
+	<context:component-scan base-package="com.my.customer.service"></context:component-scan>
+	<context:component-scan base-package="com.my.customer.control"></context:component-scan>
+	<context:component-scan base-package="com.my.cart.control"></context:component-scan>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/views/"></property>
-	<property name="suffix" value="result.jsp"></property>
+<!--<property name="suffix" value="result.jsp"></property> -->
 	</bean>
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:resources location="/resources/images/" mapping="/images/**"></mvc:resources>
+	<mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
+	<mvc:resources location="/resources/css/" mapping="/css/**"></mvc:resources>
+	<mvc:resources location="/resources/html/" mapping="/html/**"></mvc:resources>
 </beans>

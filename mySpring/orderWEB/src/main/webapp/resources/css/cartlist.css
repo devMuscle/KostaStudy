@@ -1,0 +1,9 @@
+@charset "UTF-8";
+table.cartlist{
+	width:100%;
+	border: 1px solid;
+	border-collapse: collapse
+}
+table.cartlist th, table.cartlist td{
+	border: 1px solid;
+}

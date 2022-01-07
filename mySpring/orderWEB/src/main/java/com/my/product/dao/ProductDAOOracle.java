@@ -37,7 +37,7 @@ public class ProductDAOOracle implements ProductDAOInterface {
 		List<Product> list = new ArrayList<>();
 		try {
 			//con = MyConnection.getConnection();
-			con = ds.getConnection();
+			con=ds.getConnection();
 			pstmt = con.prepareStatement(selectAllSQL);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
