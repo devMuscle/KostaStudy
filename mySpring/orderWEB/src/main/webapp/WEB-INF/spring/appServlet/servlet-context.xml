@@ -20,14 +20,29 @@
 	<property name="password" value="hr"></property>
 	</bean>
 	
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation"
+		value="classpath:mybatis-config.xml">
+	</property>
+	</bean>
+	
 	<context:component-scan base-package="com.my.control"></context:component-scan>
+	
 	<context:component-scan base-package="com.my.product.dao"></context:component-scan>
 	<context:component-scan base-package="com.my.product.service"></context:component-scan>
 	<context:component-scan base-package="com.my.product.control"></context:component-scan>
+	
 	<context:component-scan base-package="com.my.customer.dao"></context:component-scan>
 	<context:component-scan base-package="com.my.customer.service"></context:component-scan>
 	<context:component-scan base-package="com.my.customer.control"></context:component-scan>
+	
 	<context:component-scan base-package="com.my.cart.control"></context:component-scan>
+	
+	<context:component-scan base-package="com.my.order.dao"></context:component-scan>
+	<context:component-scan base-package="com.my.order.service"></context:component-scan>
+	<context:component-scan base-package="com.my.order.control"></context:component-scan>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/views/"></property>
@@ -38,4 +53,5 @@
 	<mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="/resources/css/" mapping="/css/**"></mvc:resources>
 	<mvc:resources location="/resources/html/" mapping="/html/**"></mvc:resources>
+		
 </beans>

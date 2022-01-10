@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,70 +25,97 @@ import com.my.sql.MyConnection;
 @Repository("pDAO")
 public class ProductDAOOracle implements ProductDAOInterface {
 	@Autowired
-	private DataSource ds;
+	private SqlSessionFactory sqlSessionFactory;
+
 	private Logger log = Logger.getLogger(ProductDAOOracle.class.getName());
+
 	public ProductDAOOracle() {
 		System.out.println("ProductDAOOracl 생성자 호출됨");
 	}
+
 	@Override
 	public List<Product> findAll() throws FindException {
-		Connection con = null; //DB연결
-		PreparedStatement pstmt = null; //SQL송신
-		ResultSet rs = null; //결과 수신
-		String selectAllSQL = "SELECT * FROM product ORDER BY prod_name ASC";
-		List<Product> list = new ArrayList<>();
+		SqlSession session = null;
 		try {
-			//con = MyConnection.getConnection();
-			con=ds.getConnection();
-			pstmt = con.prepareStatement(selectAllSQL);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				String prodNo = rs.getString("prod_no");
-				String prodName = rs.getString("prod_name");
-				int prodPrice = rs.getInt("prod_price");
-				Product p = new Product(prodNo, prodName, prodPrice);
-				list.add(p);
-			}
-			if(list.size() == 0) {
-				throw new FindException("상품이 없습니다");
-			}
+			session = sqlSessionFactory.openSession();
+			List<Product> list = session.selectList("com.my.product.ProductMapper.findAll");
 			return list;
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
 			throw new FindException(e.getMessage());
-		}finally {
-			MyConnection.close(rs, pstmt, con);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
+//		Connection con = null; //DB연결
+//		PreparedStatement pstmt = null; //SQL송신
+//		ResultSet rs = null; //결과 수신
+//		String selectAllSQL = "SELECT * FROM product ORDER BY prod_name ASC";
+//		List<Product> list = new ArrayList<>();
+//		try {
+//			//con = MyConnection.getConnection();
+//			con=ds.getConnection();
+//			pstmt = con.prepareStatement(selectAllSQL);
+//			rs = pstmt.executeQuery();
+//			while(rs.next()) {
+//				String prodNo = rs.getString("prod_no");
+//				String prodName = rs.getString("prod_name");
+//				int prodPrice = rs.getInt("prod_price");
+//				Product p = new Product(prodNo, prodName, prodPrice);
+//				list.add(p);
+//			}
+//			if(list.size() == 0) {
+//				throw new FindException("상품이 없습니다");
+//			}
+//			return list;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new FindException(e.getMessage());
+//		}finally {
+//			MyConnection.close(rs, pstmt, con);
+//		}
 	}
 
 	@Override
 	public Product findByNo(String prodNo) throws FindException {
-		log.debug("디버그레벨");
-		log.info("ProductDAOOracle의 findByNo");
-		log.warn("워닝 레벨");
-		log.error("에러 레벨");
-		Connection con = null; //DB연결
-		PreparedStatement pstmt = null; //SQL송신
-		ResultSet rs = null; //결과 수신
-		String selectByNoSQL = "SELECT * FROM product WHERE prod_no=?";
+		SqlSession session = null;
 		try {
-			//con = MyConnection.getConnection();
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(selectByNoSQL);
-			pstmt.setString(1, prodNo);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				String prodName = rs.getString("prod_name");
-				int prodPrice = rs.getInt("prod_price");
-				return new Product(prodNo, prodName, prodPrice);
+			session = sqlSessionFactory.openSession();
+			Product p = session.selectOne("com.my.product.ProductMapper.findByNo", prodNo);
+			if(p == null) {
+				throw new FindException("상품이 없습니다");
 			}
-			throw new FindException("상품이 없습니다");
-		} catch (SQLException e) {
+			return p;
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new FindException(e.getMessage());
-		}finally {
-			MyConnection.close(rs, pstmt, con);
+			throw new FindException();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
+//		Connection con = null; // DB연결
+//		PreparedStatement pstmt = null; // SQL송신
+//		ResultSet rs = null; // 결과 수신
+//		String selectByNoSQL = "SELECT * FROM product WHERE prod_no=?";
+//		try {
+//			// con = MyConnection.getConnection();
+//			con = ds.getConnection();
+//			pstmt = con.prepareStatement(selectByNoSQL);
+//			pstmt.setString(1, prodNo);
+//			rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				String prodName = rs.getString("prod_name");
+//				int prodPrice = rs.getInt("prod_price");
+//				return new Product(prodNo, prodName, prodPrice);
+//			}
+//			throw new FindException("상품이 없습니다");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new FindException(e.getMessage());
+//		} finally {
+//			MyConnection.close(rs, pstmt, con);
+//		}
 	}
 
 	@Override
@@ -112,6 +141,7 @@ public class ProductDAOOracle implements ProductDAOInterface {
 		// TODO Auto-generated method stub
 
 	}
+
 	public static void main(String[] args) throws FindException {
 		ProductDAOOracle dao = new ProductDAOOracle();
 		String prodNo = "C0001";

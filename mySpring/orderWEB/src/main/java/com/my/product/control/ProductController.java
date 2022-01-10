@@ -21,18 +21,22 @@ public class ProductController {
 	//상품전체목록
 	@GetMapping("productlist")
 	public ModelAndView list() {
-		ModelAndView mnv = new ModelAndView();	
+		ModelAndView mnv = new ModelAndView();
 		try {
 			List<Product> list = service.findAll();
 			mnv.addObject("list", list);
+			//mnv.setViewName("productlist");
 			mnv.setViewName("productlistresult.jsp");
+			
 		} catch (FindException e) {
 			e.printStackTrace();
 			mnv.addObject("msg", e.getMessage());
+			//mnv.setViewName("fail");
 			mnv.setViewName("failresult.jsp");
 		}
-		return mnv;	
+		return mnv;
 	}
+	
 	//상품상세
 	@GetMapping("productdetail")
 	public String detail(String prodNo, Model model) {
@@ -41,7 +45,8 @@ public class ProductController {
 			//request.setAttribute()과 같은 효과
 			model.addAttribute("p", p);
 			return "productdetailresult.jsp";
-		} catch (FindException e) {
+		}catch(FindException e) {
+			model.addAttribute("msg", e.getMessage());
 			return "failresult.jsp";
 		}
 	}
