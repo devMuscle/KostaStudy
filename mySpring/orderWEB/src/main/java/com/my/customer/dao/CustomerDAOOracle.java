@@ -201,51 +201,18 @@ public class CustomerDAOOracle implements CustomerDAOInterface {
 
 	@Override
 	public void modify(Customer c) throws ModifyException {
-		Connection con = null;
-		Statement stmt = null;
-		String updateSQL = "UPDATE customer SET ";
-		boolean flag = false; // 수정할 값 존재하면 true, 수정할 값없으면 false
-		String pwd = c.getPwd();
-		if (!"".equals(pwd)) { // 비밀번호값 존재하면
-			updateSQL += "pwd='" + pwd + "' ";
-			flag = true;
-		}
-
-		String name = c.getName();
-		if (!"".equals(name)) {// 이름값 존재하면
-			if (flag) {
-				updateSQL += ", ";
-			}
-			updateSQL += "name='" + name + "' ";
-			flag = true;
-		}
-
-		String address = c.getAddress();
-		if (!"".equals(address)) {// 주소값 존재하면
-			if (flag) {
-				updateSQL += ", ";
-			}
-			updateSQL += "address='" + address + "' ";
-			flag = true;
-		}
-
-		if (!flag) { // if(flag != true){
-			throw new ModifyException("고객정보가 변경되지않았습니다");
-		}
-		String updateSQL1 = "WHERE id = '" + c.getId() + "'";
+		SqlSession session = null;
 		try {
-			// con = MyConnection.getConnection();
-			con = ds.getConnection();
-			stmt = con.createStatement();
-			int rowcnt = stmt.executeUpdate(updateSQL + updateSQL1);
-			if (rowcnt != 1) {
-				throw new ModifyException("변경할 고객이 없습니다");
-			}
-		} catch (SQLException e) {
+		session = sqlSessionFactory.openSession();
+		session.update("com.my.customer.CustomerMapper.modify", c);
+		session.commit(); //스프링을 사용하지않는 마이바티스는 autocommit이 아님
+		} catch(Exception e) {
 			e.printStackTrace();
 			throw new ModifyException(e.getMessage());
 		} finally {
-			MyConnection.close(stmt, con);
+			if(session != null) {
+				session.close();
+			}
 		}
 	}
 

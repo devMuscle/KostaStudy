@@ -1,12 +1,10 @@
 package com.my.order.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -21,9 +19,7 @@ import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.order.vo.OrderInfo;
 import com.my.order.vo.OrderLine;
-import com.my.product.dao.ProductDAOOracle;
 import com.my.product.vo.Product;
-import com.my.sql.MyConnection;
 @Repository("oDAO")
 public class OrderDAOOracle implements OrderDAOInterface {
 	@Autowired
@@ -35,48 +31,29 @@ public class OrderDAOOracle implements OrderDAOInterface {
 
 	@Override
 	public void add(OrderInfo info) throws AddException {
-		String insertInfoSQL =
-				"INSERT INTO order_info(order_no, order_id, order_dt) VALUES (order_seq.NEXTVAL, ?, SYSDATE)";
-		String insertLineSQL = 
-				"INSERT INTO order_line(order_no, order_prod_no, order_quantity) VALUES (order_seq.CURRVAL,?, ?)";
-
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
+		SqlSession session = null;
 		try {
-			con = ds.getConnection();//DB와 연결
-			con.setAutoCommit(false); //자동커밋해제
-
-			//---주문기본추가 시작----
-			pstmt = con.prepareStatement(insertInfoSQL);//SQL구문송신
-
-			String orderId = info.getOrderCustomer().getId();
-			pstmt.setString(1, orderId);
-			pstmt.executeUpdate(); //SQL실행
-			//---주문기본추가 끝----
-
-			//--주문상세추가 시작--
-			pstmt = con.prepareStatement(insertLineSQL);//SQL구문송신			
-			List<OrderLine> lines = info.getLines();
-			for(OrderLine line: lines) {
-				String orderProdNo = line.getOrderProduct().getProdNo();
-				int orderQuantity = line.getOrderQuantity();
-				pstmt.setString(1, orderProdNo);
-				pstmt.setInt(2, orderQuantity);
-				pstmt.executeUpdate(); //SQL실행				
-			}			
-			//--주문상세추가 끝--
-			con.commit();
-		}catch(Exception e) {
-			if(con != null) {
-				try {
-					con.rollback();
-				} catch (SQLException e1) {
-				}
-			}
+		session= sqlSessionFactory.openSession();
+		session.insert("com.my.order.OrderMapper.orderInfo", info.getOrderCustomer().getId());
+		
+		List<OrderLine> lines = info.getLines();
+		for(OrderLine line : lines) {
+			int quantity = line.getOrderQuantity();
+			String prodNo = line.getOrderProduct().getProdNo();
+//			Map<String,Object> map = new HashMap<>();
+//			map.put("prodNo", prodNo);
+//			map.put("quantity", quantity);
+//			session.insert("com.my.order.OrderMapper.orderLine", map);
+			session.insert("com.my.order.OrderMapper.orderLine", line);
+		}
+		
+		} catch(Exception e) {
+			e.printStackTrace();
 			throw new AddException(e.getMessage());
-		}finally {
-			MyConnection.close(pstmt, con);
+		} finally {
+			if(session != null) {
+				session.close();
+			}
 		}
 	}
 
