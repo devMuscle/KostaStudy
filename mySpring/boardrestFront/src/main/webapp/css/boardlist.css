@@ -1,0 +1,201 @@
+div.boardlist{
+	width:1000px;
+}
+div.boardlist h2 {
+    /* font: bold 36px Avenir, Arial, georgia;
+    color: #222222;
+    padding-top: 30px;
+    position: relative; */
+    color: #444;
+    padding-top: 20px;
+    margin-bottom: 18px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+div.boardlist>div.search {
+    background: #f4f4f2;
+    padding: 15px 20px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 35px;
+    height: 50px;
+    
+    
+} 
+
+
+/* div.boardlist>div.search fieldset, div.boardlist>div.search fieldset>legend{
+    border: 0;
+} */
+div.boardlist>div.search div.searchInput {
+    position: absolute;
+    right: 20px;
+    top: auto;
+    width: 395px;
+    border-radius: 5px;
+}
+div.boardlist>div.search div.searchInput input {
+    width: 343px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    float: left;
+}
+div.boardlist>div.search div.searchInput a.searchBtn {
+    width: 42px;
+    height: 28px;
+    line-height: 28px;
+    background: #777777;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    display: block;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+/*table */
+div.boardlist>div.table{
+    width: 100%; 
+    display: table;
+    /* table-layout: fixed; */
+}
+
+/*theader*/
+
+div.boardlist>div.table>div.theader{
+    display: table-row-group;
+}
+/*tbody의 tr*/
+div.boardlist>div.table>div.theader>div.tr{
+    width:100%;
+    padding: 17px 0;
+    display:table-row;
+ }
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary{ 
+/*     background-image: url(../images/btn_arrow_down.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer; */
+}
+/*td*/
+div.boardlist>div.table>div.theader>div.tr>div.td{
+     width:100%;
+    border-bottom: 1px solid #eceae5;
+    display: table-cell;
+}
+/*td>div.summary*/
+div.boardlist>div.table  > div.theader>div.tr>div.td>div.summary{
+    display:block;
+}
+/*td>div.summary>div*/
+div.boardlist>div.table>div.theader>div.tr>div>div.summary>div{
+    display: inline-block;
+    padding: 17px 0;
+    cursor: pointer;
+    color: #444;
+    line-height: 1.4;
+    font-size: 1em;
+}
+
+/* div.boardlist>div.table>div.theader>div.tr>div.th.no, */
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary>div.no{
+    width:10%;
+}
+/*td>div.summary>div.title*/
+
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary>div.title{
+    width:40%;
+}
+/*td>div.summary>div.id*/
+
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary>div.id{
+    width:15%;
+}
+/*td>div.summary>div.viewcount*/
+
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary>div.viewcount{
+    width:10%;
+}
+/*td>div.summary>div.dt*/
+div.boardlist>div.table>div.theader>div.tr>div.td>div.summary>div.dt{
+    width:15%;
+}
+
+div.boardlist>div.table>div.theader>div.tr>div.td>div.detail{
+    display:none; 
+}
+/*------------*/
+
+
+/*tbody*/
+div.boardlist>div.table>div.tbody{
+    display: table-row-group;
+}
+/*tbody의 tr.row*/
+div.boardlist>div.table>div.tbody>div.tr.row{
+    display: none;
+}
+/*tbody의 tr.copy*/
+div.boardlist>div.table>div.tbody>div.tr.copy{
+    width:100%;
+    padding: 17px 0;
+    display:table-row;
+ }
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary{ 
+    background-image: url(../images/btn_arrow_down.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+/*td*/
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td{
+     width:100%;
+    border-bottom: 1px solid #eceae5;
+    display: table-cell;
+}
+/*td>div.summary*/
+div.boardlist>div.table  > div.tbody>div.tr.copy>div.td>div.summary{
+    display:block;
+}
+/*td>div.summary>div*/
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div{
+    display: inline-block;
+    padding: 17px 0;
+    cursor: pointer;
+    color: #444;
+    line-height: 1.4;
+    font-size: 1em;
+}
+
+/* div.boardlist>div.table>div.theader>div.tr>div.th.no, */
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div.no{
+    width:10%;
+}
+/*td>div.summary>div.title*/
+
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div.title{
+    width:40%;
+}
+/*td>div.summary>div.id*/
+
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div.id{
+    width:15%;
+}
+/*td>div.summary>div.viewcount*/
+
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div.viewcount{
+    width:10%;
+}
+/*td>div.summary>div.dt*/
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.summary>div.dt{
+    width:15%;
+}
+
+div.boardlist>div.table>div.tbody>div.tr.copy>div.td>div.detail{
+    display:none; 
+}

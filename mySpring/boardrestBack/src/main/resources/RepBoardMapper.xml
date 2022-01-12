@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.board.RepBoardMapper">
+	<select id="findAll" resultType="RepBoard">
+		SELECT level,
+		repboard.board_no,
+		repboard.parent_no,
+		repboard.board_id "boardC.id",
+		repboard.board_title,
+		repboard.board_content,
+		repboard.board_viewcount,
+		repboard.board_dt
+		FROM repboard
+		START WITH parent_no = 0
+		CONNECT BY PRIOR board_no = parent_no
+		ORDER SIBLINGS BY board_no DESC;
+	</select>
+</mapper>
