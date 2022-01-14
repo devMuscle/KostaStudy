@@ -8,36 +8,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.my.board.vo.RepBoard;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 
-@Repository
+@Repository("rDAO")
 public class RepBoardDAOOracle implements RepBoardDAOInterface {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
-	
+
 	@Override
-	public List<RepBoard> list() throws FindException {
+	public List<RepBoard> findAll() throws FindException {
 		SqlSession session = null;
 		try {
-			sqlSessionFactory.openSession();
+			session = sqlSessionFactory.openSession();
 			List<RepBoard> list = session.selectList("com.my.board.RepBoardMapper.findAll");
 			return list;
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new FindException(e.getMessage());
 		} finally {
-			if(session != null) {
+			if (session != null) {
 				session.close();
 			}
 		}
 	}
 
 	@Override
-	public RepBoard finByNo(int boardNo) throws FindException {
-		// TODO Auto-generated method stub
-		return null;
+	public RepBoard findByNo(int boardNo) throws FindException {
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			RepBoard rb = session.selectOne("com.my.board.RepBoardMapper.findByNo", boardNo);
+			if (rb == null) {
+				throw new FindException("게시글이 없습니다");
+			}
+			return rb;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 
 	@Override
@@ -48,20 +63,68 @@ public class RepBoardDAOOracle implements RepBoardDAOInterface {
 
 	@Override
 	public void plusViewCount(int boardNo) throws ModifyException {
-		// TODO Auto-generated method stub
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			session.update("com.my.board.RepBoardMapper.plusViewCount", boardNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ModifyException(e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 
 	}
 
 	@Override
 	public void modify(RepBoard repBoard) throws ModifyException {
-		// TODO Auto-generated method stub
-
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			session.update("com.my.board.RepBoardMapper.modify", repBoard);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ModifyException(e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 
 	@Override
-	public void remove(RepBoard repBoard) throws RemoveException {
-		// TODO Auto-generated method stub
+	public void remove(int boardNo) throws RemoveException {
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			session.delete("com.my.board.RepBoardMapper.remove1", boardNo);
+			session.delete("com.my.board.RepBoardMapper.remove2", boardNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RemoveException(e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 
 	}
-
+	
+	@Override
+	public void add(RepBoard repBoard) throws AddException {
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			session.update("com.my.board.RepBoardMapper.add", repBoard);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AddException(e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
 }

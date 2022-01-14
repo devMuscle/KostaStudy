@@ -14,7 +14,56 @@
 		repboard.board_dt
 		FROM repboard
 		START WITH parent_no = 0
-		CONNECT BY PRIOR board_no = parent_no
-		ORDER SIBLINGS BY board_no DESC;
+		CONNECT BY PRIOR
+		board_no = parent_no
+		ORDER SIBLINGS BY board_no DESC
 	</select>
+
+	<select id="findByNo" resultType="RepBoard" parameterType="int">
+		SELECT board_no, parent_no, board_id "boardC.id", board_title,
+		board_content, board_viewcount, board_dt
+		FROM repboard WHERE
+		board_no=#{boardNo}
+	</select>
+
+	<update id="plusViewCount" parameterType="int">
+		UPDATE repboard SET
+		board_viewcount = board_viewcount + 1 WHERE board_no=#{boardNo}
+	</update>
+
+	<update id="modify" parameterType="Repboard">
+		UPDATE repboard SET
+		board_content = #{boardContent} WHERE board_no=#{boardNo}
+	</update>
+
+	<insert id="add" parameterType="RepBoard">
+		INSERT INTO repboard(board_no, parent_no, board_id, board_title,
+		board_content, board_viewcount, board_dt)
+		VALUES (board_seq.NEXTVAL, #{parentNo},
+		#{boardC.id},#{boardTitle},#{boardContent}, 0, SYSDATE)
+		<selectKey order="AFTER" keyProperty="boardNo"
+			resultType="int">
+			SELECT board_seq.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+
+
+	<delete id="remove1" parameterType="int">
+		DELETE FROM repboard
+		WHERE
+		board_no IN (SELECT board_no
+		FROM (SELECT rownum r, a.*
+		FROM (SELECT *
+		FROM repboard
+		ORDER BY board_no DESC
+		) a
+		START WITH parent_no=#{boardNo}
+		CONNECT BY PRIOR board_no = parent_no
+		)
+		)
+	</delete>
+
+	<delete id="remove2" parameterType="int">
+		DELETE FROM repboard WHERE board_no = #{boardNo}
+	</delete>
 </mapper>

@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import com.my.board.vo.RepBoard;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
@@ -14,7 +15,7 @@ public interface RepBoardDAOInterface {
 	 * @return
 	 * @throws FindException
 	 */
-	public List<RepBoard> list() throws FindException;
+	public List<RepBoard> findAll() throws FindException;
 	
 	/**
 	 * 글번호로 게시글을 검색한다 
@@ -22,7 +23,7 @@ public interface RepBoardDAOInterface {
 	 * @return
 	 * @throws FindException
 	 */
-	public RepBoard finByNo(int boardNo) throws FindException;
+	public RepBoard findByNo(int boardNo) throws FindException;
 
 	/**
 	 * 단어를 포함한 제목이나 내용의 게시글 검색한다
@@ -51,5 +52,15 @@ public interface RepBoardDAOInterface {
 	 * @param repBoard
 	 * @throws RemoveException
 	 */
-	public void remove(RepBoard repBoard) throws RemoveException;
+	public void remove(int boardNo) throws RemoveException;
+	
+	
+	/**
+	 * 게시글 추가
+	 * @param repBoard
+	 * @throws AddException
+	 */
+	public void add(RepBoard repBoard) throws AddException;
+
+	
 }
