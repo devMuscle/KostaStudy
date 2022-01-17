@@ -67,6 +67,9 @@ public class RepBoardController {
 	@GetMapping("board/info")
 	@ResponseBody
 	public RepBoard info(HttpServletRequest request) throws FindException {
+		//Map<String, Object> 타입으로 return 변경
+		//repBoard, letter(배열), image(문자열) 반환
+		//자바입출력용 File의 list()참고 
 		String no = request.getParameter("no");
 		int boardNo = Integer.parseInt(no);
 		try {
@@ -210,7 +213,7 @@ public class RepBoardController {
 			}
 
 			// 이미지파일인 경우 섬네일파일을 만듦
-			String thumbnailName = "s_" + imageFileName; // 섬네일 파일명은 s_글번호_XXXX_원본이름
+			String thumbnailName = "s_" + wroteBoardNo + "_" + UUID.randomUUID() + imageFileName; // 섬네일 파일명은 s_글번호_XXXX_원본이름
 			thumbnailFile = new File(saveDirectory, thumbnailName);
 			FileOutputStream thumbnailOS;
 			thumbnailOS = new FileOutputStream(thumbnailFile);

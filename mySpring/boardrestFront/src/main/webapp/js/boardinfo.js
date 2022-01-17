@@ -117,6 +117,7 @@ $(function() {
 
 	//--첨부파일 클릭 시작--
 	$('div.data>span.letters').on('click', 'span', function() {
+		alert("첨부파일 다운 클릭");
 		let href = backContextPath + '/board/download?fileName=' + fileName;
 		window.location.href = href;
 		return false;
