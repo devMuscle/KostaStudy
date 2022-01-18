@@ -1,0 +1,41 @@
+#mybatis:
+#  config-location: classpath:mybatisConfig/mybatis-config.xml
+server:
+  port: 9999
+  servlet:
+    context-path: /orderWEB
+spring:
+  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    password: hr
+#    url: jdbc:oracle:thin:@localhost:1521:xe
+#    username: hr
+    hikari:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:oracle:thin:@localhost:1521:xe
+      username: hr
+      password: hr
+      maximum-pool-size: 10
+      minimum-idle: 2     
+
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+#      suffix: .jsp
+#스프링 부트 로그레벨 TRACE < DEBUG < INFO < WARN < ERROR
+#logging.level.root=warn : 전체로깅레벨 지정
+#logging.level.com.example.demo.control=debug : 하위패키지에 대한 각 로깅레벨 지정
+#logging.level.com.example.demo.dao = info
+logging:
+  level:
+    root: warn
+  file:
+#    path: ./log
+    name: ./log/my.log
+  charset:
+    file: UTF-8
+    console: UTF-8
+  logback:
+    rollingpolicy:
+      max-file-size: 1KB
+      max-history: 1      

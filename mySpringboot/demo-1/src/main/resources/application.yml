@@ -21,3 +21,20 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+#스프링 부트 로그레벨 TRACE < DEBUG < INFO < WARN < ERROR
+#logging.level.root=warn : 전체로깅레벨 지정
+#logging.level.com.example.demo.control=debug : 하위패키지에 대한 각 로깅레벨 지정
+#logging.level.com.example.demo.dao = info
+logging:
+  level:
+    root: warn
+  file:
+#    path: ./log
+    name: ./log/my.log
+  charset:
+    file: UTF-8
+    console: UTF-8
+  logback:
+    rollingpolicy:
+      max-file-size: 1KB
+      max-history: 1      
