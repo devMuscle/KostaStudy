@@ -26,13 +26,11 @@ public class ProductController {
 		try {
 			List<Product> list = service.findAll();
 			mnv.addObject("list", list);
-			//mnv.setViewName("productlist");
 			mnv.setViewName("productlistresult");
 			
 		} catch (FindException e) {
 			e.printStackTrace();
 			mnv.addObject("msg", e.getMessage());
-			//mnv.setViewName("fail");
 			mnv.setViewName("failresult");
 		}
 		return mnv;
@@ -43,7 +41,6 @@ public class ProductController {
 	public String detail(String prodNo, Model model) {
 		try {
 			Product p = service.findByNo(prodNo);
-			//request.setAttribute()과 같은 효과
 			model.addAttribute("p", p);
 			return "productdetailresult";
 		}catch(FindException e) {

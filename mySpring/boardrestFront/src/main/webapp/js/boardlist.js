@@ -81,8 +81,8 @@ $(function() {
 					//					let jsonData = { boardNo: 1, level: 1, boardTitle: "게시글1", boardC: { id: "id9", name: "오문정" }, boardViewcount: 10, boardDt: "21/01/01", boardContent: "게시글1의 내용" };
 
 					$.ajax({
-						url: backContextPath + "/board/info",
-						data: "no=" + no,
+						url: backContextPath + "/board/"+no,
+						//data: "no=" + no,
 						method: "get",
 						success: function(jsonData) {
 							var $divInfo = $divDetail.find("div.info");

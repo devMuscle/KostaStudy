@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.my.customer.vo.Customer;
 import com.my.exception.AddException;
@@ -26,12 +27,10 @@ import com.my.product.vo.Product;
 public class OrderDAOOracle implements OrderDAOInterface {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
-	
-	@Autowired
-	private DataSource ds;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@Override
+	@Transactional(rollbackFor = AddException.class)
 	public void add(OrderInfo info) throws AddException {
 		SqlSession session = null;
 		try {

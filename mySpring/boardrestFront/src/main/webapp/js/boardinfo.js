@@ -22,7 +22,7 @@ $(function() {
 		let sendData = {};
 		sendData["boardNo"] = boardNo;
 		sendData["boardContent"] = boardContent;
-
+		/*
 		$.ajax({
 			url: backContextPath + "/board/modify",
 			data: sendData,
@@ -40,6 +40,38 @@ $(function() {
 			}
 
 		});
+		*/
+		//js객체를 json문자열로 변환
+		let data = JSON.stringify(sendData);
+		
+		$.ajax({
+			"method": "PUT",
+			"transformRequest": [
+				null
+			],
+			"transformResponse": [
+				null
+			],
+			"jsonpCallbackParam": "callback",
+			"url": backContextPath + "/board/" + boardNo,
+			"headers": {
+				"Accept": "application/json, text/plain, */*",
+				"Content-Type": "application/json;charset=utf-8"
+			},
+			"data": data, //JSON문자열
+			"timeout": {},
+			"success": function(jsonData) {
+				alert("수정 성공");
+				if (jsonData.status == 1) { //수정 성공
+					$("header>ul>li>a.list").trigger("click");
+				} else { //수정 실패
+					alert(jsonData.msg);
+				}
+			},
+			"error": function(xhr) {
+				alert(xhr.status);
+			}
+		})
 	});
 	//--수정 링크 클릭 끝--
 
@@ -57,6 +89,7 @@ $(function() {
 			alert(jsonData.msg);
 		}
 		*/
+		/*
 		$.ajax({
 			url: backContextPath + "/board/remove",
 			data: "boardNo=" + boardNo,
@@ -72,6 +105,32 @@ $(function() {
 			}
 
 		});
+		*/
+		$.ajax({
+			"method": "DELETE",
+			"transformRequest": [
+				null
+			],
+			"transformResponse": [
+				null
+			],
+			"jsonpCallbackParam": "callback",
+			"url": backContextPath + "/board/" + boardNo,
+			"headers": {
+				"Accept": "application/json, text/plain, */*"
+			},
+			"data": "",
+			"timeout": {},
+			"success": function(jsonData) {
+				if (jsonData.status == 1) {
+					$('header>ul>li>a.list').trigger('click'); //게시판 목록
+				} else {
+					alert(jsonData.msg);
+				}
+			}, "error": function(xhr) {
+				alert(xhr.status);
+			}
+		})
 
 	});
 	//--삭제 링크 클릭 끝 --

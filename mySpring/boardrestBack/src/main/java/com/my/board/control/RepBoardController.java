@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.my.board.dao.RepBoardDAOInterface;
@@ -40,7 +47,9 @@ import com.my.exception.RemoveException;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
-@Controller
+//@Controller
+@RestController
+@RequestMapping("board/*")
 public class RepBoardController {
 	@Autowired
 	private RepBoardService service;
@@ -50,9 +59,8 @@ public class RepBoardController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
-	@GetMapping("board/list")
-	@ResponseBody
-	public Object findAll() {
+	@GetMapping("/list")
+	public Object list() {
 		try {
 			List<RepBoard> list = service.findAll();
 			return list;
@@ -64,16 +72,13 @@ public class RepBoardController {
 		}
 	}
 
-	@GetMapping("board/info")
-	@ResponseBody
-	public RepBoard info(HttpServletRequest request) throws FindException {
-		//Map<String, Object> 타입으로 return 변경
-		//repBoard, letter(배열), image(문자열) 반환
-		//자바입출력용 File의 list()참고 
-		String no = request.getParameter("no");
-		int boardNo = Integer.parseInt(no);
+//	@GetMapping("board/info")
+//	public RepBoard info(HttpServletRequest request) throws FindException {
+	
+	@GetMapping("/{boardNo}")
+	public Object info(@PathVariable(name = "boardNo") int no) throws FindException {
 		try {
-			RepBoard rb = dao.findByNo(boardNo);
+			RepBoard rb = dao.findByNo(no);
 			return rb;
 		} catch (FindException e) {
 			e.printStackTrace();
@@ -81,18 +86,19 @@ public class RepBoardController {
 		}
 	}
 
-	@GetMapping("board/modify")
-	@ResponseBody
-	public Object modify(HttpServletRequest request) throws ModifyException, FindException {
-		String boardContent = request.getParameter("boardContent");
-		String no = request.getParameter("boardNo");
-		int boardNo = Integer.parseInt(no);
+//	@GetMapping("board/modify")
+//	@ResponseBody
+//	public Object modify(HttpServletRequest request) throws ModifyException, FindException {
+	@PutMapping("/{boardNo}")
+	public Object modify(@PathVariable int boardNo, @RequestBody RepBoard repboard, HttpServletRequest request) throws ModifyException {
+		String boardContent = repboard.getBoardContent();
 
 		Map<String, Object> returnMap = new HashMap<>();
 
 		try {
 			RepBoard rb = dao.findByNo(boardNo);
 			rb.setBoardContent(boardContent);
+			logger.error("boardContent=" + repboard.getBoardContent());
 			dao.modify(rb);
 			returnMap.put("msg", "수정 성공");
 			returnMap.put("status", 1);
@@ -104,7 +110,7 @@ public class RepBoardController {
 		return returnMap;
 	}
 
-	@PostMapping("board/reply")
+	@PostMapping("/reply")
 	@ResponseBody
 	public Object add(HttpServletRequest request) throws AddException {
 		String loginedId = request.getParameter("loginedId");
@@ -129,10 +135,11 @@ public class RepBoardController {
 		return returnMap;
 	}
 
-	@GetMapping("board/remove")
-	@ResponseBody
-	public Object remove(HttpServletRequest request) throws RemoveException {
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+//	@GetMapping("board/remove")
+//	@ResponseBody
+//	public Object remove(HttpServletRequest request) throws RemoveException {
+	@DeleteMapping("/{boardNo}")
+	public Object remove(@PathVariable int boardNo) {
 		Map<String, Object> returnMap = new HashMap<>();
 
 		try {
@@ -147,7 +154,7 @@ public class RepBoardController {
 		return returnMap;
 	}
 
-	@PostMapping("board/write")
+	@PostMapping("/write")
 	public ResponseEntity<?> write(@RequestPart(required = false) List<MultipartFile> letterFiles,
 			@RequestPart(required = false) MultipartFile imageFile, RepBoard repBoard) {
 		logger.info("요청전달데이터 title=" + repBoard.getBoardTitle() + ", content=" + repBoard.getBoardContent());
@@ -246,7 +253,7 @@ public class RepBoardController {
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@GetMapping("board/download")
+	@GetMapping("/download")
 	public ResponseEntity<Resource> download(String fileName) throws UnsupportedEncodingException {
 		logger.info("첨부파일 다운로드");
 		// 파일 경로생성
