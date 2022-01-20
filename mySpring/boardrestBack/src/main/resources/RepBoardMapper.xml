@@ -3,8 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.board.RepBoardMapper">
-	<select id="findAll" resultType="RepBoard">
-		SELECT level,
+	<select id="findAll" resultType="RepBoard" parameterType="map">
+		<!-- SELECT level, repboard.board_no, repboard.parent_no, repboard.board_id 
+			"boardC.id", repboard.board_title, repboard.board_content, repboard.board_viewcount, 
+			repboard.board_dt FROM repboard START WITH parent_no = 0 CONNECT BY PRIOR 
+			board_no = parent_no ORDER SIBLINGS BY board_no DESC -->
+		<!-- SELECT * FROM(SELECT rownum r, a.* FROM (SELECT level, repboard.board_no, 
+			repboard.parent_no, repboard.board_id "boardC.id", repboard.board_title, 
+			repboard.board_content, repboard.board_viewcount, repboard.board_dt FROM 
+			repboard START WITH parent_no = 0 CONNECT BY PRIOR board_no = parent_no ORDER 
+			SIBLINGS BY board_no DESC)a ) WHERE r BETWEEN START_ROW(#{currentPage},#{cntPerPage}) 
+			AND END_ROW(#{currentPage},#{cntPerPage}) -->
+
+		SELECT *
+		FROM (SELECT rownum r, a.*
+		FROM (SELECT level,
 		repboard.board_no,
 		repboard.parent_no,
 		repboard.board_id "boardC.id",
@@ -14,9 +27,13 @@
 		repboard.board_dt
 		FROM repboard
 		START WITH parent_no = 0
-		CONNECT BY PRIOR
-		board_no = parent_no
-		ORDER SIBLINGS BY board_no DESC
+		CONNECT BY PRIOR board_no = parent_no
+		ORDER SIBLINGS BY board_no DESC) a
+		)
+		WHERE r BETWEEN START_ROW(#{currentPage},#{cntPerPage}) AND
+		END_ROW(#{currentPage},#{cntPerPage})
+
+
 	</select>
 
 	<select id="findByNo" resultType="RepBoard" parameterType="int">
@@ -39,7 +56,8 @@
 	<insert id="add" parameterType="RepBoard">
 		INSERT INTO repboard(board_no, parent_no, board_id, board_title,
 		board_content, board_viewcount, board_dt)
-		VALUES (board_seq.NEXTVAL, #{parentNo},
+		VALUES (board_seq.NEXTVAL,
+		#{parentNo},
 		#{boardC.id},#{boardTitle},#{boardContent}, 0, SYSDATE)
 		<selectKey order="AFTER" keyProperty="boardNo"
 			resultType="int">
@@ -64,6 +82,7 @@
 	</delete>
 
 	<delete id="remove2" parameterType="int">
-		DELETE FROM repboard WHERE board_no = #{boardNo}
+		DELETE FROM repboard WHERE
+		board_no = #{boardNo}
 	</delete>
 </mapper>

@@ -43,7 +43,7 @@ $(function() {
 		*/
 		//js객체를 json문자열로 변환
 		let data = JSON.stringify(sendData);
-		
+
 		$.ajax({
 			"method": "PUT",
 			"transformRequest": [
@@ -139,11 +139,18 @@ $(function() {
 	let $replyBtObj = $("div.reply>form>input[type=button]");
 	$replyBtObj.click(function() {
 		let parentNo = $('div.info>div.data>span.no').html(); //글번호가 부모글번호역할
-		let formData = $("div.reply>form").serialize();
+		let boardTitle = $('div.reply>form>div.data>input.title').val(); 
+		let boardContent = $('div.reply>form>div.data>textarea.content').val();
 		//답글제목 //답글내용
 		//let sendData = "parentNo=" + parentNo + "&" + formData ;
-		let sendData = "loginedId=" + loginedId + "&parentNo=" + parentNo + "&" + formData;
-		alert(sendData);
+		let sendData = {};
+		sendData["boardC"] = {"id" : loginedId};
+		sendData["parentNo"] = parentNo;
+		sendData["boardTitle"] = boardTitle;
+		sendData["boardContent"] = boardContent;
+		alert(loginedId + " " + parentNo + " " + boardTitle + " " + boardContent);
+		//"loginedId=" + loginedId + "&parentNo=" + parentNo + "&" + formData;
+		//alert(sendData);
 		/*
 		let jsonData = { status: 1, msg: '성공' };
 		//let jsonData = { status: 0, msg: '답글실패' };
@@ -153,7 +160,7 @@ $(function() {
 			alert(jsonData.msg);
 		}
 		*/
-
+		/*
 		$.ajax({
 			url: backContextPath + "/board/reply",
 			data: sendData,
@@ -169,6 +176,40 @@ $(function() {
 				alert(xhr.status);
 			}
 		})
+		*/
+		
+		
+		let data = JSON.stringify(sendData); //sendData가 문자열 -> 자바스크립트 객체 ->  json 문자열로 변환 
+		$.ajax(
+			{
+				"method": "POST",
+				"transformRequest": [
+					null
+				],
+				"transformResponse": [
+					null
+				],
+				"jsonpCallbackParam": "callback",
+				"url": backContextPath + "/board/reply",
+				"headers": {
+					"Accept": "application/json, text/plain, */*",
+					"Content-Type": "application/json;charset=utf-8"
+				},
+				"data":data,
+				"timeout": {},
+				success: function(jsonData) {
+					if (jsonData.status == 1) {
+						$("header>ul>li>a.list").trigger("click");
+					} else {
+						alert(jsonData.status);
+					}
+				},
+				error: function(xhr) {
+					alert(xhr.status);
+				}
+			}
+		);
+
 		return false;
 
 	});

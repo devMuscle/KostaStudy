@@ -1,6 +1,8 @@
 package com.my.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,10 +22,18 @@ public class RepBoardDAOOracle implements RepBoardDAOInterface {
 
 	@Override
 	public List<RepBoard> findAll() throws FindException {
+		return findAll(1, 5);
+	}
+	
+	@Override
+	public List<RepBoard> findAll(int currentPage, int cntPerPage) throws FindException {
 		SqlSession session = null;
 		try {
 			session = sqlSessionFactory.openSession();
-			List<RepBoard> list = session.selectList("com.my.board.RepBoardMapper.findAll");
+			Map<String, Integer> map = new HashMap<>();
+			map.put("currentPage", currentPage); //1페이지 검색
+			map.put("cntPerPage", cntPerPage); //페이지별 보여줄 목록수
+			List<RepBoard> list = session.selectList("com.my.board.RepBoardMapper.findAll", map);
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,6 +44,7 @@ public class RepBoardDAOOracle implements RepBoardDAOInterface {
 			}
 		}
 	}
+	
 
 	@Override
 	public RepBoard findByNo(int boardNo) throws FindException {

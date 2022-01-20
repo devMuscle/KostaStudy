@@ -21,6 +21,11 @@ public class RepBoardService {
 		return dao.findAll();
 	}
 	
+	public List<RepBoard> findAll(int currentPage) throws FindException{
+		int cntPerPage=5;
+		return dao.findAll(currentPage, cntPerPage);
+	}
+	
 	public RepBoard findByNo(int boardNo) throws FindException {
 		try {
 			dao.plusViewCount(boardNo);

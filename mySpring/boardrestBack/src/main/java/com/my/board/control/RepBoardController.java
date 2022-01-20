@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,10 +60,19 @@ public class RepBoardController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
-	@GetMapping("/list")
-	public Object list() {
+	// @GetMapping("/list")
+	@GetMapping(value= {"/list", "/list/{currentPage}"})
+//	public Object list(@PathVariable int currentPage) {
+	public Object list(@PathVariable Optional<Integer> currentPage) {
 		try {
-			List<RepBoard> list = service.findAll();
+			// List<RepBoard> list = service.findAll();
+			List<RepBoard> list;
+			if(currentPage.isPresent()) {  //currentPage값이 있는경우
+				int cp = currentPage.get();
+				list = service.findAll(cp);
+			} else {
+				list = service.findAll();
+			}
 			return list;
 		} catch (FindException e) {
 			Map<String, Object> returnMap = new HashMap<>();
@@ -74,7 +84,7 @@ public class RepBoardController {
 
 //	@GetMapping("board/info")
 //	public RepBoard info(HttpServletRequest request) throws FindException {
-	
+
 	@GetMapping("/{boardNo}")
 	public Object info(@PathVariable(name = "boardNo") int no) throws FindException {
 		try {
@@ -90,7 +100,8 @@ public class RepBoardController {
 //	@ResponseBody
 //	public Object modify(HttpServletRequest request) throws ModifyException, FindException {
 	@PutMapping("/{boardNo}")
-	public Object modify(@PathVariable int boardNo, @RequestBody RepBoard repboard, HttpServletRequest request) throws ModifyException {
+	public Object modify(@PathVariable int boardNo, @RequestBody RepBoard repboard, HttpServletRequest request)
+			throws ModifyException {
 		String boardContent = repboard.getBoardContent();
 
 		Map<String, Object> returnMap = new HashMap<>();
@@ -111,21 +122,20 @@ public class RepBoardController {
 	}
 
 	@PostMapping("/reply")
-	@ResponseBody
-	public Object add(HttpServletRequest request) throws AddException {
-		String loginedId = request.getParameter("loginedId");
-		int parentNo = Integer.parseInt(request.getParameter("parentNo"));
-		String boardTitle = request.getParameter("boardTitle");
-		String boardContent = request.getParameter("boardContent");
+//	@ResponseBody
+	public Object add(@RequestBody RepBoard repBoard) {
+		// String loginedId, int parentNo, String boardTitle, String boardContent)
+		// throws AddException {
 
 		Map<String, Object> returnMap = new HashMap<>();
 
-		Customer c = new Customer();
-		c.setId(loginedId);
+//		Customer c = new Customer();
 
-		RepBoard rb = new RepBoard(parentNo, c, boardTitle, boardContent);
+//		c.setId(loginedId);
+//		RepBoard rb = new RepBoard(parentNo, c, boardTitle, boardContent);
 		try {
-			dao.add(rb);
+//			dao.add(rb);
+			dao.add(repBoard);
 			returnMap.put("msg", "수정 성공");
 			returnMap.put("status", 1);
 		} catch (Exception e) {
@@ -220,7 +230,8 @@ public class RepBoardController {
 			}
 
 			// 이미지파일인 경우 섬네일파일을 만듦
-			String thumbnailName = "s_" + wroteBoardNo + "_" + UUID.randomUUID() + imageFileName; // 섬네일 파일명은 s_글번호_XXXX_원본이름
+			String thumbnailName = "s_" + wroteBoardNo + "_" + UUID.randomUUID() + imageFileName; // 섬네일 파일명은
+																									// s_글번호_XXXX_원본이름
 			thumbnailFile = new File(saveDirectory, thumbnailName);
 			FileOutputStream thumbnailOS;
 			thumbnailOS = new FileOutputStream(thumbnailFile);

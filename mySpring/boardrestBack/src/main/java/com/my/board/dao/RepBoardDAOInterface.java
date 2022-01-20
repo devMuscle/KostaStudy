@@ -11,11 +11,20 @@ import com.my.exception.RemoveException;
 
 public interface RepBoardDAOInterface {
 	/**
-	 * 전체 게시글 검색한다
+	 * 1페이지를 검색한다. 한페이지당 보여줄 목록수는 5건이다
 	 * @return
 	 * @throws FindException
 	 */
 	public List<RepBoard> findAll() throws FindException;
+	
+	/**
+	 * 페이지번호에 해당하는 게시글을 검색한다
+	 * @param currentPage 검색할 페이지 번호
+	 * @param cntPerPage 페이지당 보여줄 목록수
+	 * @return
+	 * @throws FindException
+	 */
+	public List<RepBoard> findAll(int currentPage, int cntPerPage) throws FindException;
 	
 	/**
 	 * 글번호로 게시글을 검색한다 
