@@ -138,4 +138,21 @@ public class RepBoardDAOOracle implements RepBoardDAOInterface {
 			}
 		}
 	}
+	
+	@Override
+	public int findCount() throws FindException {
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			return session.selectOne("com.my.board.RepBoardMapper.findCount");
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+	}
+
 }

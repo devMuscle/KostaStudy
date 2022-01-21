@@ -4,18 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.board.RepBoardMapper">
 	<select id="findAll" resultType="RepBoard" parameterType="map">
-		<!-- SELECT level, repboard.board_no, repboard.parent_no, repboard.board_id 
-			"boardC.id", repboard.board_title, repboard.board_content, repboard.board_viewcount, 
-			repboard.board_dt FROM repboard START WITH parent_no = 0 CONNECT BY PRIOR 
-			board_no = parent_no ORDER SIBLINGS BY board_no DESC -->
-		<!-- SELECT * FROM(SELECT rownum r, a.* FROM (SELECT level, repboard.board_no, 
-			repboard.parent_no, repboard.board_id "boardC.id", repboard.board_title, 
-			repboard.board_content, repboard.board_viewcount, repboard.board_dt FROM 
-			repboard START WITH parent_no = 0 CONNECT BY PRIOR board_no = parent_no ORDER 
-			SIBLINGS BY board_no DESC)a ) WHERE r BETWEEN START_ROW(#{currentPage},#{cntPerPage}) 
-			AND END_ROW(#{currentPage},#{cntPerPage}) -->
-
-		SELECT *
+		SELECT
+		*
 		FROM (SELECT rownum r, a.*
 		FROM (SELECT level,
 		repboard.board_no,
@@ -27,13 +17,13 @@
 		repboard.board_dt
 		FROM repboard
 		START WITH parent_no = 0
-		CONNECT BY PRIOR board_no = parent_no
+		CONNECT BY PRIOR
+		board_no = parent_no
 		ORDER SIBLINGS BY board_no DESC) a
 		)
-		WHERE r BETWEEN START_ROW(#{currentPage},#{cntPerPage}) AND
+		WHERE r BETWEEN
+		START_ROW(#{currentPage},#{cntPerPage}) AND
 		END_ROW(#{currentPage},#{cntPerPage})
-
-
 	</select>
 
 	<select id="findByNo" resultType="RepBoard" parameterType="int">
@@ -42,6 +32,11 @@
 		FROM repboard WHERE
 		board_no=#{boardNo}
 	</select>
+
+	<select id="findCount" resultType="int">
+		SELECT COUNT(*) FROM repboard
+	</select>
+
 
 	<update id="plusViewCount" parameterType="int">
 		UPDATE repboard SET

@@ -6,17 +6,19 @@ $(function() {
 
 	//--게시글 목록 보여주기 함수 시작--//
 	function showList(jsonData) {
-		/*
-		let jsonData =
-			[{ boardNo: 1, level: 1, boardTitle: "게시글1", boardC: { id: "id1", name: "오문정" }, boardViewCount: 10, boardDt: "21/01/01", boardDetail: "게시글1의 내용" },
-			{ boardNo: 2, level : 2, boardTitle: "re-1", boardC: { id: "id2", name: "잉옹앙" }, boardViewCount: 10, boardDt: "21/01/02", boardDetail: "게시글2의 내용" },
-			{ boardNo: 4, level: 3, boardTitle: "re-re-1", boardC: { id: "id3", name: "핵펀치" }, boardViewCount: 10, boardDt: "21/01/04", boardDetail: "게시글4의 내용" },
-			{ boardNo: 3, level: 1, boardTitle: "게시글3", boardC: { id: "id3", name: "김감자" }, boardViewCount: 10, boardDt: "21/01/03", boardDetail: "게시글3의 내용" }	];
-		*/
+		let pageDTO = jsonData;
 
+		let url = pageDTO.url;
+		let currentPage = pageDTO.currentPage;
+		let totalCnt = pageDTO.totalCnt;
+		let totalPage = pageDTO.totalPage;
+		let startPage = pageDTO.startPage;
+		let endPage = pageDTO.endPage;
+
+		let list = pageDTO.list;
 		//table tbody tr객체찾기
 		let $trObj = $("div.tbody>div.tr.row");
-		$(jsonData).each(function(index, element) {
+		$(list).each(function(index, element) {
 			let $trCopyObj = $trObj.clone();//복제본
 			$trCopyObj.removeClass("row");
 			$trCopyObj.addClass("copy");
@@ -42,7 +44,43 @@ $(function() {
 
 			$("div.tbody").append($trCopyObj); //복제본을 tbody에 추가
 		});
+
+		//밑에 페이지 번호 보여주기 시작
+		let pageGroupHtml = "";
+		let j;
+
+		for (j = startPage; j <= endPage; j++) {
+			pageGroupHtml += '<a class=' + backContextPath + '/board/list/' + j;
+			pageGroupHtml += ' name=pg>' + j + ' </a>';
+		}
+
+		if (j <= totalPage) {
+			pageGroupHtml += '<a class=' + backContextPath + '/board/list/' + j;
+			pageGroupHtml += ' name=pg>next</a>';
+		}
+
+		$pgObj = $("div.pagegroup");
+		$pgObj.html(pageGroupHtml);
+		//밑에 페이지 번호 보여주기 끝
 	}
+	
+	//게시글 페이지 번호 클릭 이벤트 시작
+	$('div.pagegroup').on('click', 'a', function() {
+		$("div.tbody>div.tr.copy").remove();
+
+		$.ajax({
+			url: $(this).attr('class'),
+			method: "get",
+			success: function(jsonData) {
+				showList(jsonData);
+			},
+			error: function(xhr) {
+				alert(xhr.status);
+			}
+		});
+	});
+	//게시글 페이지 번호 클릭 이벤트 끝
+
 	//--게시글 목록 보여주기 함수 끝--//
 
 	$.ajax({
@@ -78,10 +116,8 @@ $(function() {
 			var no = $trCurrentObj.find('div.no>span').html(); //글번호찾기
 			$divDetail.load(frontContextPath + "/boardinfo.html",
 				function() {
-					//					let jsonData = { boardNo: 1, level: 1, boardTitle: "게시글1", boardC: { id: "id9", name: "오문정" }, boardViewcount: 10, boardDt: "21/01/01", boardContent: "게시글1의 내용" };
-
 					$.ajax({
-						url: backContextPath + "/board/"+no,
+						url: backContextPath + "/board/" + no,
 						//data: "no=" + no,
 						method: "get",
 						success: function(jsonData) {
@@ -110,5 +146,11 @@ $(function() {
 		}
 	});
 	//--게시글 하나 클릭 이벤트 끝--//
+	
+	//--통합 검색 클릭 이벤트 시작--
+	$("a.searchBtn").click(function(){
+		let keyword = $("#word").val();
+		alert(keyword);
+	})
 
 });

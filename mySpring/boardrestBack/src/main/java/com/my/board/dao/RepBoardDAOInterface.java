@@ -71,5 +71,10 @@ public interface RepBoardDAOInterface {
 	 */
 	public void add(RepBoard repBoard) throws AddException;
 
-	
+	/**
+	 * 총 게시글 목록 수를 반환한다 
+	 * @return 게시글 개수
+	 * @throws FindException
+	 */
+	public int findCount() throws FindException;
 }

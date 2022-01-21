@@ -41,6 +41,7 @@ import com.my.board.dao.RepBoardDAOInterface;
 import com.my.board.service.RepBoardService;
 import com.my.board.vo.RepBoard;
 import com.my.customer.vo.Customer;
+import com.my.dto.PageDTO;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
@@ -60,27 +61,34 @@ public class RepBoardController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
-	// @GetMapping("/list")
 	@GetMapping(value= {"/list", "/list/{currentPage}"})
-//	public Object list(@PathVariable int currentPage) {
 	public Object list(@PathVariable Optional<Integer> currentPage) {
 		try {
-			// List<RepBoard> list = service.findAll();
-			List<RepBoard> list;
-			if(currentPage.isPresent()) {  //currentPage값이 있는경우
+			/*List<RepBoard> list;
+			if(currentPage.isPresent()) { //currentPage값이 있는 경우
 				int cp = currentPage.get();
 				list = service.findAll(cp);
-			} else {
+			}else { //값이 없는 경우(null인 경우)
 				list = service.findAll();
 			}
 			return list;
-		} catch (FindException e) {
+			*/
+			PageDTO<RepBoard> pageDTO;
+			if(currentPage.isPresent()) { //currentPage값이 있는 경우
+				int cp = currentPage.get();
+				pageDTO = service.findAll(cp);
+			}else { //값이 없는 경우(null인 경우)
+				pageDTO = service.findAll();
+			}
+			return pageDTO;
+		}catch(FindException e) {
 			Map<String, Object> returnMap = new HashMap<>();
 			returnMap.put("msg", e.getMessage());
 			returnMap.put("status", 0);
 			return returnMap;
 		}
 	}
+
 
 //	@GetMapping("board/info")
 //	public RepBoard info(HttpServletRequest request) throws FindException {
@@ -122,19 +130,11 @@ public class RepBoardController {
 	}
 
 	@PostMapping("/reply")
-//	@ResponseBody
 	public Object add(@RequestBody RepBoard repBoard) {
-		// String loginedId, int parentNo, String boardTitle, String boardContent)
-		// throws AddException {
-
+	
 		Map<String, Object> returnMap = new HashMap<>();
 
-//		Customer c = new Customer();
-
-//		c.setId(loginedId);
-//		RepBoard rb = new RepBoard(parentNo, c, boardTitle, boardContent);
 		try {
-//			dao.add(rb);
 			dao.add(repBoard);
 			returnMap.put("msg", "수정 성공");
 			returnMap.put("status", 1);

@@ -7,25 +7,29 @@ import org.springframework.stereotype.Service;
 
 import com.my.board.dao.RepBoardDAOInterface;
 import com.my.board.vo.RepBoard;
+import com.my.dto.PageDTO;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 
 @Service
 public class RepBoardService {
-	
+
 	@Autowired
 	private RepBoardDAOInterface dao;
-	
-	public List<RepBoard> findAll() throws FindException{
-		return dao.findAll();
+
+	public PageDTO<RepBoard> findAll() throws FindException{
+		return findAll(1);
 	}
-	
-	public List<RepBoard> findAll(int currentPage) throws FindException{
-		int cntPerPage=5;
-		return dao.findAll(currentPage, cntPerPage);
+
+	public PageDTO<RepBoard> findAll(int currentPage) throws FindException{
+		String url = "/board/list";
+		int totalCnt = dao.findCount();
+		List<RepBoard> list = dao.findAll(currentPage, PageDTO.CNT_PER_PAGE);
+		PageDTO<RepBoard> pageDTO = new PageDTO<>(url, currentPage, totalCnt, list);
+		return pageDTO;
 	}
-	
+
 	public RepBoard findByNo(int boardNo) throws FindException {
 		try {
 			dao.plusViewCount(boardNo);
@@ -36,7 +40,7 @@ public class RepBoardService {
 			throw new FindException("조회수 증가 실패:" + e.getMessage());
 		}
 	}
-	
+
 	public void write(RepBoard repboard) throws AddException {
 		try {
 			dao.add(repboard);
@@ -44,6 +48,6 @@ public class RepBoardService {
 			e.printStackTrace();
 			throw new AddException("글쓰기 실패:" + e.getMessage());
 		}
-		
+
 	}
 }
