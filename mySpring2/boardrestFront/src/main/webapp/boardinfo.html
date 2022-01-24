@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="./css/boardinfo.css" />
+<script src="./js/boardinfo.js"></script>
+
+<div class="info">
+	<div class="image"><img></div>
+	
+	<div class="data"><label>글번호</label><span class="no"></span></div>
+	<div class="data"><label>제목</label><span class="title"></span></div>
+	<div class="data"><label>작성자</label><span class="id"></span></div>
+	<div class="data"><label>작성일자</label><span class="dt"></span></div>
+	<div class="data"><label>조회수</label><span class="viewcount"></span></div>
+	<div class="data"><label>자소서및이력서</label><span class="letters"></span></div>
+	
+	<div class="data"><label>글내용</label><textarea class="content"></textarea></div>
+
+	<a href="#" class="reply">답글</a>&nbsp;&nbsp;
+	<a href="#" class="modify">수정</a>&nbsp;&nbsp;
+	<a href="#" class="remove">삭제</a>
+</div>
+
+<div class="reply">
+	<form>
+		<div class="data"><label>답글제목</label><input type="text" name="boardTitle"></div>
+		<div class="data"><label>답글내용 </label><textarea name="boardContent"></textarea></div>
+		<input type="button" value="답글쓰기">
+	</form>
+</div>

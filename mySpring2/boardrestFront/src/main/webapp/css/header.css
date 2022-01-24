@@ -1,0 +1,18 @@
+@charset "UTF-8";
+header>ul {
+   list-style-type: none;
+   padding: 0px;
+}
+
+header>ul>li {
+   display: inline-block;
+}
+
+header>ul>li:hover {
+   background-color: blanchedalmond;
+   cursor: pointer;
+}
+
+header>ul>li>a {
+   text-decoration: none;
+}

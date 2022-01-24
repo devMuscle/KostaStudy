@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+</head>
+<body>
+<div class="info">
+ <a href="http://www.daum.net">다음</a><br>
+ <a href="/boardrestBack/board/download?fileName=48_letter_1731fd2e-019d-403d-814e-dd502b44abc5_HR스키마.pdf">첨부2</a>
+ <hr>
+ <span class="letters">
+   <a href="/boardrestBack/board/download?fileName=48_letter_1731fd2e-019d-403d-814e-dd502b44abc5_HR스키마.pdf">첨부2</a>
+   <a class="test" href="48_letter_1731fd2e-019d-403d-814e-dd502b44abc5_HR스키마.pdf">첨부2</a>
+</span>
+
+</div>
+div밖
+<a href="/boardrestBack/board/download?fileName=48_letter_1731fd2e-019d-403d-814e-dd502b44abc5_HR스키마.pdf">첨부2</a>
+
+<script>
+
+
+ $('div.info').click(function(){
+	return false;
+});
+
+ $('span.letters').on('click', 'a.test', function(){
+	let fileName = $(this).attr('href');
+	alert("첨부클릭됨!" + fileName);
+	/*var $a = $('<a>');
+   var url = '/boardrestBack/board/download?fileName=' + fileName; //encodeURIComponent(name);
+
+    $a.attr('href', url);
+    console.log($a.attr('href'));
+    $a.click(); */
+	
+	 $.ajax({
+		url: '/boardrestBack/board/download',
+		method :'get',
+		data : "fileName=" + fileName, 
+		success: function (responseData){
+			 window.location ='/boardrestBack/board/download?fileName='+fileName;
+		},
+		error: function(xhr){
+			alert(xhr.status);
+		}
+	}); 
+	/* $.fileDownload('/boardrestBack/board/download?fileName='+fileName)
+    .done(function () { alert('File download a success!'); })
+    .fail(function () { alert('File download failed!'); }); */
+	 return false;
+}); 
+</script>
+</body>
+</html>
