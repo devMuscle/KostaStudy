@@ -1,7 +1,9 @@
+mybatis:
+  config-location: classpath:mybatisConfig/mybatis-config.xml
 server:
   port: 9999
   servlet:
-    context-path: /jpaBoot
+    context-path: /orderBOOTJPA
 spring:
   datasource:
     hikari:
@@ -11,16 +13,16 @@ spring:
       password: hr
       maximum-pool-size: 10
       minimum-idle: 2     
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
   jpa:
     database: oracle
-#    hibernate:
-#      ddl-auto: update
-#DB 고유 기능 사용 여부 : generate-ddl
+    hibernate:
+      ddl-auto: update
     generate-ddl: true
     show-sql: true
     database-platform: org.hibernate.dialect.Oracle10gDialect
-    
-#logger.level.org.hibernate=info
 logging:
   level:
     org.hibernate: info 

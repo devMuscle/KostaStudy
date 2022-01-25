@@ -1,0 +1,8 @@
+@charset "UTF-8";
+table.orderlist{
+	border:1px solid;
+	border-collapse:collapse;
+}
+table.orderlist td, table.orderlist th{
+	border:1px solid;
+}

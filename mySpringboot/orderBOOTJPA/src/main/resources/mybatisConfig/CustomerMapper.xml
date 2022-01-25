@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.customer.CustomerMapper">
+	<select id="findById" parameterType="string" resultType="Customer">
+		SELECT * FROM customer WHERE id=#{id}
+	</select>
+	
+	<insert id="add" parameterType="Customer">
+		INSERT INTO customer(id,pwd,name,address) VALUES (#{id}, #{pwd}, #{name}, #{address})
+	</insert>
+	
+	<select id="findByName" parameterType="string" resultType="Customer">
+		SELECT * FROM customer WHERE name LIKE '%${name}%'
+	</select>
+	
+	<update id="modify" parameterType="Customer">
+		UPDATE customer
+		<set>
+			<if test="pwd != null and pwd != ''">pwd=#{pwd},</if>
+			<if test="name != null and name != ''">name=#{name},</if>
+			<if test="address != null and address != ''">address=#{address},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+</mapper>
