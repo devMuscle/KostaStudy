@@ -28,8 +28,6 @@ class CustomerRepositoryTest {
 	private EntityManager entityManager;
 	@Autowired
 	private CustomerRepository repository;
-	@Autowired
-	private EntityManager em;
 	
 	@Test
 	@Transactional
@@ -90,11 +88,11 @@ class CustomerRepositoryTest {
 	}
 	
 	@Test
-	void testFindByName() {
+	void  n() {
 		String name = "이름";
 		List<Customer> list = repository.findByName(name);
 		int expectedSize = 2;
-		assertTrue(list.size()==expectedSize);
+		assertTrue(expectedSize == list.size());
 	}
 	
 	@Test

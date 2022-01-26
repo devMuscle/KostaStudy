@@ -1,18 +1,19 @@
-package com.my.customer.vo;
+package com.my.customer.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
- * 고객객체용 클래스이다
- * 고객정보(아이디, 비밀번호, 이름, 주소)
- * @author HongJiPyo
- *
- */
+@Entity(name = "customer")
+@Table(name="customer")
 public class Customer extends Person {
+	@Id
+	@Column(name="id")
 	private String id;
+
+	@Column(name="pwd")
 	private String pwd;
-	private static final long serialVersionUID = 1L;
-//	private String name;
-//	private String address;
 	
 	public Customer(){}
 	

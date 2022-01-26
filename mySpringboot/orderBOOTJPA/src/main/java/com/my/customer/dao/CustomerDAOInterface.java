@@ -2,7 +2,7 @@ package com.my.customer.dao;
 
 import java.util.List;
 
-import com.my.customer.vo.Customer;
+import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;

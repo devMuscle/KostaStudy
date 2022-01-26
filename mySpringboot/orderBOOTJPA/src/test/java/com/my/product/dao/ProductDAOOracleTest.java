@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 import com.my.product.dao.ProductDAOInterface;
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
 
 @SpringBootTest
 public class ProductDAOOracleTest {

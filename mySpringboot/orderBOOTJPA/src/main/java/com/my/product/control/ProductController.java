@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.exception.FindException;
+import com.my.product.entity.Product;
 import com.my.product.service.ProductService;
-import com.my.product.vo.Product;
 
 @Controller
 public class ProductController {
@@ -41,7 +41,7 @@ public class ProductController {
 	@GetMapping("productdetail")
 	public String detail(String prodNo, Model model) {
 		try {
-			Product p = service.findByNo(prodNo);
+			Product p = service.findByProdNo(prodNo);
 			//request.setAttribute()과 같은 효과
 			model.addAttribute("p", p);
 			return "productdetailresult.jsp";

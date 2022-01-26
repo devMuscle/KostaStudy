@@ -1,4 +1,4 @@
-package com.my.product.vo;
+package com.my.product.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,51 +7,51 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 
-@Entity
-@Table
+@Entity(name="Product")
+@Table(name="product")
 public class Product {
 	@Id
-	@Column 
-	private String prod_no;               
+	@Column(name="prod_no")
+	private String prodNo;               
 	
-	@Column
-	private String prod_name;
+	@Column(name="prod_name")
+	private String prodName;
 	
-	@Column
+	@Column(name="prod_price")
 	@ColumnDefault(value="1")
-	private int prod_price;
+	private int prodPrice;
 
 	public Product() {
 	}
 	
 	public Product(String prod_no, String prod_name, int prod_price){
-		this.prod_no = prod_no;
-		this.prod_name = prod_name;
-		this.prod_price = prod_price;
+		this.prodNo = prod_no;
+		this.prodName = prod_name;
+		this.prodPrice = prod_price;
 	}
 
 	public String getProdNo() {
-		return prod_no;
+		return prodNo;
 	}
 
 	public void setProdNo(String prod_no) {
-		this.prod_no = prod_no;
+		this.prodNo = prod_no;
 	}
 
 	public String getProdName() {
-		return prod_name;
+		return prodName;
 	}
 
 	public void setProdName(String prod_name) {
-		this.prod_name = prod_name;
+		this.prodName = prod_name;
 	}
 
 	public int getProdPrice() {
-		return prod_price;
+		return prodPrice;
 	}
 
 	public void setProdPrice(int prod_price) {
-		this.prod_price = prod_price;
+		this.prodPrice = prod_price;
 	}
 
 	

@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.my.product.entity.Product;
+import com.my.customer.entity.Customer;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, String> {
-	
-	Product findByProdNo(String no);
+public interface CustomerRepository extends CrudRepository<Customer, String> {
+	List<Customer> findByName(String name); 
+
 }

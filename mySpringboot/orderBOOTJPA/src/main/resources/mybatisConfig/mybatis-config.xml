@@ -8,9 +8,9 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.my.product.vo.Product" alias="Product" />
-		<typeAlias type="com.my.customer.vo.Customer"
-			alias="Customer" />
+		<!--  <typeAlias type="com.my.product.entity.Product" alias="Product" /> -->
+	<!--  	<typeAlias type="com.my.customer.vo.Customer"
+			alias="Customer" />  -->
 		<typeAlias type="com.my.order.vo.OrderInfo"
 			alias="OrderInfo" />
 		<typeAlias type="com.my.order.vo.OrderLine"
@@ -31,8 +31,8 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="mybatisConfig/ProductMapper.xml" />
-		<mapper resource="mybatisConfig/CustomerMapper.xml" />
+	<!-- <mapper resource="mybatisConfig/ProductMapper.xml" /> -->
+	<!--  <mapper resource="mybatisConfig/CustomerMapper.xml" /> -->
 		<mapper resource="mybatisConfig/OrderMapper.xml" />
 	</mappers>
 </configuration>

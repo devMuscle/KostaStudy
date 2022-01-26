@@ -1,8 +1,8 @@
 package com.my.customer.control;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.my.customer.entity.Customer;
 import com.my.customer.service.CustomerService;
-import com.my.customer.vo.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 
@@ -81,14 +81,14 @@ public class CustomerController {
 	@ResponseBody
 	public Map<String, Object> idDupChk(@RequestParam(name = "id") String idValue, Model model) {
 		System.out.println("입력받은 id값:" + idValue);
-
+		
 		String resultMsg = "";
 		int status = 0;
 		try {
 			service.addupchk(idValue);
 			System.out.println("중복된 아이디입니다");
 			resultMsg = "중복된 아이디입니다";
-		} catch (FindException e) {
+		} catch (NoSuchElementException e) {
 			System.out.println("사용가능한 아이디입니다");
 			resultMsg = "사용가능한 아이디입니다";
 			status = 1;

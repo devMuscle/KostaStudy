@@ -1,6 +1,6 @@
 package com.my.order.vo;
 
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
 
 public class OrderLine {
 	private int orderNo;

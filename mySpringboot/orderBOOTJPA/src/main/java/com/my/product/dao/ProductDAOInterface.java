@@ -6,7 +6,7 @@ import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
 
 public interface ProductDAOInterface {
 	/**

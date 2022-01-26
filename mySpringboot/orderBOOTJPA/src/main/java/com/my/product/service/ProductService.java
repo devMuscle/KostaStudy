@@ -9,29 +9,33 @@ import org.springframework.stereotype.Service;
 import com.my.exception.FindException;
 import com.my.product.dao.ProductDAOInterface;
 import com.my.product.dao.ProductDAOOracle;
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
+import com.my.repository.ProductRepository;
 
 @Service
 public class ProductService {
 	@Autowired	
-	private ProductDAOInterface dao;
+	private ProductRepository repository;
 	
 	public ProductService() {
 		//dao = new ProductDAOOracle();
 	}
-	public ProductService(ProductDAOInterface dao) {
-		this.dao = dao;
-		System.out.println("ProductService(" + dao + ")생성자호출됨");
+	public ProductService(ProductRepository repository) {
+		this.repository = repository;
+		System.out.println("ProductService(" + repository + ")생성자호출됨");
 	}
-	public void setDao(ProductDAOInterface d) {
-		this.dao = d;
-		System.out.println("ProductService의 setDao(" + d +")호출됨");
+	public void setDao(ProductRepository repository) {
+		this.repository = repository;
+		System.out.println("ProductService의 setDao(" + repository +")호출됨");
 	}
 	
 	public List<Product> findAll() throws FindException{
-		return dao.findAll();
+		return (List<Product>) repository.findAll();
 	}
-	public Product findByNo(String prodNo) throws FindException{
-		return dao.findByNo(prodNo);
+	
+	
+	public Product findByProdNo(String prodNo) throws FindException{
+		return repository.findByProdNo(prodNo);
 	}
+	
 }

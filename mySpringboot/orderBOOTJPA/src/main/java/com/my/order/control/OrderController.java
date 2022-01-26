@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.my.customer.vo.Customer;
+import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.order.service.OrderService;
 import com.my.order.vo.OrderInfo;
 import com.my.order.vo.OrderLine;
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
 @Controller
 public class OrderController {
 	@Autowired

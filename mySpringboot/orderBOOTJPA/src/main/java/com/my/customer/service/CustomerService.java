@@ -1,18 +1,21 @@
 package com.my.customer.service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.my.customer.dao.CustomerDAOInterface;
-import com.my.customer.dao.CustomerDAOOracle;
+import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
-import com.my.customer.vo.Customer;
+import com.my.repository.CustomerRepository;
 
 @Service
 public class CustomerService {
 	@Autowired
-	private CustomerDAOInterface dao;
+	private CustomerRepository repository;
 	
 	/**
 	 * 아이디와 비번인 일치하는 고객이 존재하면 고객객체를 반환하고
@@ -24,9 +27,9 @@ public class CustomerService {
 	 */
 	public Customer login(String id, String pwd) throws FindException{
 		try {
-			Customer c = dao.findById(id);
-			if(c.getPwd().equals(pwd)) {
-				return c;
+			Optional<Customer> c = repository.findById(id);
+			if(c.get().getPwd().equals(pwd)) {
+				return c.get();
 			}
 			throw new FindException();
 		}catch(FindException e) {
@@ -34,11 +37,12 @@ public class CustomerService {
 		}
 	}
 	
-	public void addupchk(String id) throws FindException{
-		Customer c = dao.findById(id);
+	public void addupchk(String id) throws NoSuchElementException{
+		Optional<Customer> c = repository.findById(id);
+		c.get();
 	}
 	
 	public void signup(Customer c) throws AddException{
-		dao.add(c);
+		repository.save(c);
 	}
 }

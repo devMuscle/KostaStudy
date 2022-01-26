@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.my.customer.vo.Customer;
+import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.order.vo.OrderInfo;
 import com.my.order.vo.OrderLine;
-import com.my.product.vo.Product;
+import com.my.product.entity.Product;
 
 
 

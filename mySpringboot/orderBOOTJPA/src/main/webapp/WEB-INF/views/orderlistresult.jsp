@@ -1,4 +1,4 @@
-<%@page import="com.my.product.vo.Product"%>
+<%@page import="com.my.product.entity.Product"%>
 <%@page import="com.my.order.vo.OrderLine"%>
 <%@page import="com.my.order.vo.OrderInfo"%>
 <%@page import="java.util.List"%>

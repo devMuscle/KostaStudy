@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.my.exception.FindException;
+import com.my.product.entity.Product;
 import com.my.product.service.ProductService;
-import com.my.product.vo.Product;
 
 @Controller
 public class CartController {
@@ -38,7 +38,7 @@ public class CartController {
 			//상품번호별 상품정보 찾기, 상품번호별 수량얻기
 			for(String prodNo : prodNos) {
 				try {
-					Product p = service.findByNo(prodNo); //상품번호별 상품정보 찾기
+					Product p = service.findByProdNo(prodNo); //상품번호별 상품정보 찾기
 					int quantity = cart.get(prodNo);//상품번호별 수량얻기
 					responseMap.put(p, quantity); //응답용자료구조에 추가
 				}catch(FindException e) {

@@ -3,13 +3,18 @@ package com.my.order.vo;
 import java.util.Date;
 import java.util.List;
 
-import com.my.customer.vo.Customer;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.my.customer.entity.Customer;
 
 public class OrderInfo {
 	private int orderNo;
 	private Customer orderCustomer;
 	private Date orderDt;
 	private List<OrderLine> lines;
+	private String testStr;
+	
 	public OrderInfo() {
 	}
 	public OrderInfo(int orderNo, Customer orderCustomer, Date orderDt, List<OrderLine> lines) {
