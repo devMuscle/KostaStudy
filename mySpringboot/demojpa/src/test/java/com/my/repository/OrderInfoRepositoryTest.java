@@ -27,7 +27,7 @@ class OrderInfoRepositoryTest {
 		info.setOrder_c(c);
 		List<OrderLine> lines = new ArrayList<>();
 		OrderLine line = new OrderLine();
-		line.setOrder_info(info);
+		line.setOrder_no(info.getOrder_no());
 		Product p = new Product();
 		p.setProd_no("C0001");
 		line.setOrder_p(p);
@@ -35,7 +35,7 @@ class OrderInfoRepositoryTest {
 		lines.add(line);
 		
 		OrderLine line2 = new OrderLine();
-		line2.setOrder_info(info);
+		line2.setOrder_no(info.getOrder_no());
 		Product p2 = new Product();
 		p2.setProd_no("C0002");
 		line2.setOrder_p(p2);

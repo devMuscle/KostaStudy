@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.my.exception.AddException;
 import com.my.exception.FindException;
-import com.my.order.vo.OrderInfo;
+import com.my.order.entity.OrderInfo;
 
 public interface OrderDAOInterface {
 	/**

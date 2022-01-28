@@ -38,7 +38,7 @@ public class OrderInfo {
 	@CreationTimestamp
 	private Date order_dt;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order_info")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order_no")
 	private List<OrderLine> lines;
 	
 	public int getOrder_no() {

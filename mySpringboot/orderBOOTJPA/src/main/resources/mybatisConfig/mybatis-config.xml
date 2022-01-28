@@ -11,9 +11,9 @@
 		<!--  <typeAlias type="com.my.product.entity.Product" alias="Product" /> -->
 	<!--  	<typeAlias type="com.my.customer.vo.Customer"
 			alias="Customer" />  -->
-		<typeAlias type="com.my.order.vo.OrderInfo"
+		<typeAlias type="com.my.order.entity.OrderInfo"
 			alias="OrderInfo" />
-		<typeAlias type="com.my.order.vo.OrderLine"
+		<typeAlias type="com.my.order.entity.OrderLine"
 			alias="OrderLine" />
 
 	</typeAliases>
@@ -33,6 +33,6 @@
 	<mappers>
 	<!-- <mapper resource="mybatisConfig/ProductMapper.xml" /> -->
 	<!--  <mapper resource="mybatisConfig/CustomerMapper.xml" /> -->
-		<mapper resource="mybatisConfig/OrderMapper.xml" />
+	<mapper resource="mybatisConfig/OrderMapper.xml" />
 	</mappers>
 </configuration>

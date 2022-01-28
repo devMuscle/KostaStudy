@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
+import com.my.order.entity.OrderInfo;
+import com.my.order.entity.OrderLine;
 import com.my.order.service.OrderService;
-import com.my.order.vo.OrderInfo;
-import com.my.order.vo.OrderLine;
 import com.my.product.entity.Product;
-@Controller
+
 public class OrderController {
-	@Autowired
+	
 	private OrderService service;
 	@GetMapping("/addorder")
 	public String add(HttpSession session, Model model) {
@@ -39,18 +39,18 @@ public class OrderController {
 				msg = "장바구니가 비었습니다";
 			}else {
 				OrderInfo info = new OrderInfo();
-				info.setOrderCustomer(c);
-				List<OrderLine> lines = new ArrayList<>();
-				for(String prodNo : cart.keySet()) {
-					int qt = cart.get(prodNo);
-					OrderLine line = new OrderLine();
-					Product p = new Product();
-					p.setProdNo(prodNo);
-					line.setOrderProduct(p);
-					line.setOrderQuantity(qt);
-					lines.add(line);
-				}
-				info.setLines(lines);
+//				info.setOrder_c(c);
+//				List<OrderLine> lines = new ArrayList<>();
+//				for(String prodNo : cart.keySet()) {
+//					int qt = cart.get(prodNo);
+//					OrderLine line = new OrderLine();
+//					Product p = new Product();
+//					p.setProdNo(prodNo);
+//					line.setOrder_p(p);
+//					line.setOrder_quantity(qt);
+//					lines.add(line);
+//				}
+//				info.setLines(lines);
 				
 				try {
 					service.add(info);
@@ -70,7 +70,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("orderlist")
-	public String list(HttpSession session, Model model) {
+	public String list(HttpSession session, Model model) throws Exception {
 		Customer c = (Customer)session.getAttribute("loginInfo");
 		String viewName = "jsonresult.jsp";
 		if(c != null) {

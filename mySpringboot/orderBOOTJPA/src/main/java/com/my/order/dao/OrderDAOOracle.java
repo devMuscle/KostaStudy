@@ -20,12 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.my.customer.entity.Customer;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
-import com.my.order.vo.OrderInfo;
-import com.my.order.vo.OrderLine;
+import com.my.order.entity.OrderInfo;
+import com.my.order.entity.OrderLine;
 import com.my.product.entity.Product;
-@Repository
+
 public class OrderDAOOracle implements OrderDAOInterface {
-	@Autowired
+
 	private SqlSessionFactory sqlSessionFactory;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -35,12 +35,12 @@ public class OrderDAOOracle implements OrderDAOInterface {
 		SqlSession session = null;
 		try {
 		session= sqlSessionFactory.openSession();
-		session.insert("com.my.order.OrderMapper.orderInfo", info.getOrderCustomer().getId());
+//		session.insert("com.my.order.OrderMapper.orderInfo", info.getOrder_c().getId());
 		
 		List<OrderLine> lines = info.getLines();
 		for(OrderLine line : lines) {
-			int quantity = line.getOrderQuantity();
-			String prodNo = line.getOrderProduct().getProdNo();
+//			int quantity = line.getOrder_quantity();
+//			String prodNo = line.getOrder_p().getProdNo();
 			session.insert("com.my.order.OrderMapper.orderLine", line);
 		}
 		
@@ -64,8 +64,8 @@ public class OrderDAOOracle implements OrderDAOInterface {
 			log.warn("list.size=" + list.size());
 			if(list.size() > 0) {
 				for(OrderInfo info: list) {
-					log.warn(Integer.toString(info.getOrderNo()));
-					log.warn(fm.format(info.getOrderDt()));
+//					log.warn(Integer.toString(info.getOrder_no()));
+//					log.warn(fm.format(info.getOrder_dt()));
 					log.warn("info.getLines().size()=" + info.getLines().size());
 					log.warn("---------------");
 				}

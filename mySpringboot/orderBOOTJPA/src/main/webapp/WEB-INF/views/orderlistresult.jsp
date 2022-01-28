@@ -1,6 +1,6 @@
 <%@page import="com.my.product.entity.Product"%>
-<%@page import="com.my.order.vo.OrderLine"%>
-<%@page import="com.my.order.vo.OrderInfo"%>
+<%@page import="com.my.order.entity.OrderLine"%>
+<%@page import="com.my.order.entity.OrderInfo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

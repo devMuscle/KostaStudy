@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.my.customer.entity.Customer;
 
-@Repository
+
 public interface CustomerRepository extends CrudRepository<Customer, String> {
 	List<Customer> findByName(String name); 
 
